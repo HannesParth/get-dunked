@@ -87,26 +87,88 @@ func start_relay_lobby(
 		visibility: EzchaRelayMultiplayerPeer.Visibility
 ) -> void:
 	var peer: EzchaRelayMultiplayerPeer = EzchaRelayMultiplayerPeer.new()
+	_setup_relay_signal_connections(peer)
 	peer.create_lobby(server, lobby_name, max_players, 0, visibility)
 	multiplayer.multiplayer_peer = peer
 
 
 func join_relay_lobby(lobby: EzchaRelayLobby) -> void:
 	var peer: EzchaRelayMultiplayerPeer = EzchaRelayMultiplayerPeer.new()
+	_setup_relay_signal_connections(peer)
 	peer.join_lobby(lobby)
 	multiplayer.multiplayer_peer = peer
 
 
 func resolve_relay_lobby(code: String) -> void:
 	var peer: EzchaRelayMultiplayerPeer = EzchaRelayMultiplayerPeer.new()
+	_setup_relay_signal_connections(peer)
 	peer.resolve_lobby(code)
 	multiplayer.multiplayer_peer = peer
+
+
+# --- Ezcha Network Events ---
+
+func _setup_relay_signal_connections(peer: EzchaRelayMultiplayerPeer) -> void:
+	peer.lobby_connected.connect(_on_relay_lobby_connected)
+	peer.lobby_created.connect(_on_relay_lobby_created)
+	peer.lobby_joined.connect(_on_relay_lobby_joined)
+	peer.user_connected.connect(_on_relay_user_connected)
+	peer.user_disconnected.connect(_on_relay_user_disconnected)
+
+
+func _on_relay_lobby_connected() -> void:
+	push_warning("Lobby connected")
+
+
+func _on_relay_lobby_created() -> void:
+	push_warning("Lobby created")
+
+
+func _on_relay_lobby_joined() -> void:
+	push_warning("Lobby joined")
+
+
+func _on_relay_user_connected(peer_id: int, _user: EzchaUser) -> void:
+	push_warning("User connected: ", peer_id)
+	
+	await get_tree().create_timer(0.5).timeout
+	while (
+			multiplayer.multiplayer_peer.get_connection_status() 
+			!= MultiplayerPeer.CONNECTION_CONNECTED
+			|| (multiplayer.multiplayer_peer as EzchaRelayMultiplayerPeer).get_operation()
+			== EzchaRelayMultiplayerPeer.Operation.HANDSHAKE
+	):
+		await get_tree().create_timer(0.5).timeout
+		push_warning("Waiting connection and handshake")
+	
+	push_warning("Finished waiting for user connection")
+	
+	# Handle player spawn if hosting
+	if !multiplayer.is_server(): 
+		return
+	
+	if peer_id == 1:
+		_start_server_common()
+		return
+	
+	spawn_player(peer_id)
+
+
+func _on_relay_user_disconnected(peer_id: int, _user: EzchaUser) -> void:
+	push_warning("User disconnected: ", peer_id)
+	# Handle player removal if hosting
+	if (!multiplayer.is_server()): 
+		return
+	remove_player(peer_id)
 
 
 # --- Network Events ---
 
 func _on_peer_connected(peer_id: int) -> void:
 	push_warning("Peer connected: ", peer_id)
+	if multiplayer.multiplayer_peer is EzchaRelayMultiplayerPeer:
+		return
+	
 	# Handle player spawn if hosting
 	if !multiplayer.is_server(): 
 		return
@@ -119,6 +181,10 @@ func _on_peer_connected(peer_id: int) -> void:
 
 
 func _on_peer_disconnected(peer_id: int) -> void:
+	push_warning("Peer disconnected: ", peer_id)
+	if multiplayer.multiplayer_peer is EzchaRelayMultiplayerPeer:
+		return
+	
 	# Handle player removal if hosting
 	if (!multiplayer.is_server()): 
 		return
@@ -129,7 +195,7 @@ func _on_connected_to_server() -> void:
 	push_warning("Connected to server")
 
 func _on_connection_failed() -> void:
-	push_warning("Connection failed")
+	push_error("Connection failed")
 
 func _on_server_disconnected() -> void:
 	push_warning("Server disconnected")

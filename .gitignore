@@ -6,4 +6,4 @@
 .ezcha_dev
 
 # Rapier Physics
-addons\godot-rapier2d\bin\~libgodot_rapier.windows.x86_64-pc-windows-msvc.dll
+addons/godot-rapier2d/bin/~libgodot_rapier*
