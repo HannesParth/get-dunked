@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cviav7i16q00w"]
+
+[ext_resource type="Script" uid="uid://cv1mbbvb0yr6v" path="res://scripts/multiplayer/authentication.gd" id="1_r7i85"]
+
+[node name="Authentication" type="CanvasLayer" unique_id=117068309 node_paths=PackedStringArray("_auth_failed_msg")]
+script = ExtResource("1_r7i85")
+_main_scene = "res://scenes/lobby/lobby.tscn"
+_auth_failed_msg = NodePath("Background/CenterContainer/AuthFailedPanelContainer")
+
+[node name="Background" type="PanelContainer" parent="." unique_id=939473865]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Background" unique_id=1906770819]
+layout_mode = 2
+
+[node name="AuthFailedPanelContainer" type="PanelContainer" parent="Background/CenterContainer" unique_id=1177963488]
+visible = false
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Background/CenterContainer/AuthFailedPanelContainer" unique_id=463562847]
+layout_mode = 2
+text = "Authentication failed!"
+horizontal_alignment = 1

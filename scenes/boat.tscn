@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://twyl02qxwc6k"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t7twq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20m8l"]
+bg_color = Color(0.14767182, 0.14767182, 0.14767176, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_20m8l"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t7twq"]
+properties/0/path = NodePath(".:linear_velocity")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:angular_velocity")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[node name="Boat" type="RigidBody2D" unique_id=413082090]
+collision_mask = 15
+mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_t7twq")
+center_of_mass_mode = 1
+center_of_mass = Vector2(0, 100)
+
+[node name="Panel" type="Panel" parent="." unique_id=158775619]
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 80.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=2041664991]
+polygon = PackedVector2Array(100, 0, 100, 80, -100, 80, -100, 0, -80, 0, -80, 60, 80, 60, 80, 0)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1533399277]
+position = Vector2(0, 247)
+collision_layer = 0
+collision_mask = 0
+mass = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=1776849015]
+shape = SubResource("CircleShape2D_20m8l")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=994531938]
+replication_config = SubResource("SceneReplicationConfig_t7twq")

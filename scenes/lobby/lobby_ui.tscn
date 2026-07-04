@@ -1,0 +1,290 @@
+[gd_scene format=3 uid="uid://cuui436eax7hf"]
+
+[ext_resource type="Script" uid="uid://gcvbct505qlc" path="res://scripts/multiplayer/lobby_ui.gd" id="1_lvof1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_20m8l"]
+font_size = 50
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_re1am"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_20m8l"]
+
+[node name="UI" type="CanvasLayer" unique_id=129432372 node_paths=PackedStringArray("_enet_address_edit", "_enet_join_port_edit", "_enet_host_port_edit", "_enet_join_button", "_enet_host_button", "_relay_panel", "_relay_join_code_edit", "_relay_resolve_join_code_button", "_relay_host_name_edit", "_relay_host_server_dropdown", "_relay_host_visibility_dropdown", "_relay_host_button", "_relay_find_lobby_list", "_relay_find_refresh_button", "_relay_find_join_button")]
+script = ExtResource("1_lvof1")
+_enet_address_edit = NodePath("MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer/OptionsGrid/AddressLineEdit")
+_enet_join_port_edit = NodePath("MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer/OptionsGrid/PortSpinBox")
+_enet_host_port_edit = NodePath("MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/HostPanel/MarginContainer/VBoxContainer/OptionsGrid/PortSpinBox")
+_enet_join_button = NodePath("MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer/JoinLobbyButton")
+_enet_host_button = NodePath("MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/HostPanel/MarginContainer/VBoxContainer/HostLobbyButton")
+_relay_panel = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs")
+_relay_join_code_edit = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/JoinLobbyPanel/MarginContainer/VBoxContainer/HBoxContainer/JoinCodeLineEdit")
+_relay_resolve_join_code_button = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/JoinLobbyPanel/MarginContainer/VBoxContainer/ResolveJoinCodeButton")
+_relay_host_name_edit = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer/ServerNameLineEdit")
+_relay_host_server_dropdown = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer/ServerDropdown")
+_relay_host_visibility_dropdown = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer/VisibilityDropdown")
+_relay_host_button = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/HostLobbyButton")
+_relay_find_lobby_list = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/FindLobbyMargin/VBoxContainer/LobbyItemList")
+_relay_find_refresh_button = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/FindLobbyMargin/VBoxContainer/ButtonsHBoxContainer/RefreshLobbyListButton")
+_relay_find_join_button = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/FindLobbyMargin/VBoxContainer/ButtonsHBoxContainer/JoinLobbyFromListButton")
+
+[node name="MainPanel" type="PanelContainer" parent="." unique_id=1753016418]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 405.0
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="MainPanel" unique_id=102679241]
+layout_mode = 2
+size_flags_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(99.26, 10.4)
+offset_transform_rotation = 0.061086524
+text = "Get Dunked"
+label_settings = SubResource("LabelSettings_20m8l")
+horizontal_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel" unique_id=874706108]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 122
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="TabContainer" type="TabContainer" parent="MainPanel/MarginContainer" unique_id=1518210322]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_re1am")
+current_tab = 0
+tab_1/title = "ENet"
+
+[node name="RelayTabs" type="TabContainer" parent="MainPanel/MarginContainer/TabContainer" unique_id=1671824888]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_20m8l")
+current_tab = 0
+tab_0/title = "Join/Host"
+tab_1/title = "Find a Lobby"
+metadata/_tab_index = 0
+
+[node name="JoinOrHostLobbyMargin" type="MarginContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs" unique_id=1966265671]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+metadata/_tab_index = 0
+metadata/_tab_name = "Join/Host"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin" unique_id=1362429892]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="JoinLobbyPanel" type="PanelContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer" unique_id=260291121]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/JoinLobbyPanel" unique_id=241324599]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/JoinLobbyPanel/MarginContainer" unique_id=1109898161]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="JoinLobbyTitleLabel" type="Label" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/JoinLobbyPanel/MarginContainer/VBoxContainer" unique_id=543127714]
+layout_mode = 2
+text = "Join a Lobby"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/JoinLobbyPanel/MarginContainer/VBoxContainer" unique_id=23928770]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="JoinCodeLabel" type="Label" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/JoinLobbyPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1961574154]
+layout_mode = 2
+text = "Join Code:"
+
+[node name="JoinCodeLineEdit" type="LineEdit" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/JoinLobbyPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=763458143]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "123ABC"
+alignment = 2
+
+[node name="ResolveJoinCodeButton" type="Button" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/JoinLobbyPanel/MarginContainer/VBoxContainer" unique_id=1640299261]
+layout_mode = 2
+text = "Resolve"
+
+[node name="HostLobbyPanel" type="PanelContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer" unique_id=870016176]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel" unique_id=1573689613]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer" unique_id=1879503339]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HostLobbyTitle" type="Label" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer" unique_id=872077813]
+layout_mode = 2
+text = "Host a Lobby"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer" unique_id=1255339930]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="ServerNameLabel" type="Label" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer" unique_id=178424820]
+layout_mode = 2
+text = "Name: "
+
+[node name="ServerNameLineEdit" type="LineEdit" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer" unique_id=181205958]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Dunking my friends"
+
+[node name="ServerDropdownLabel" type="Label" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer" unique_id=1308242211]
+layout_mode = 2
+text = "Server:"
+
+[node name="ServerDropdown" type="OptionButton" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer" unique_id=793476265]
+layout_mode = 2
+
+[node name="VisibilityDropdownLabel" type="Label" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer" unique_id=1357118893]
+layout_mode = 2
+text = "Visibility:"
+
+[node name="VisibilityDropdown" type="OptionButton" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer" unique_id=1114903765]
+layout_mode = 2
+
+[node name="HostLobbyButton" type="Button" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer" unique_id=2044050233]
+layout_mode = 2
+text = "Host"
+
+[node name="FindLobbyMargin" type="MarginContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs" unique_id=714676538]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+metadata/_tab_index = 1
+metadata/_tab_name = "Find a Lobby"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/FindLobbyMargin" unique_id=1482112883]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="LobbyItemList" type="ItemList" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/FindLobbyMargin/VBoxContainer" unique_id=277687485]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonsHBoxContainer" type="HBoxContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/FindLobbyMargin/VBoxContainer" unique_id=835364035]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 12
+
+[node name="RefreshLobbyListButton" type="Button" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/FindLobbyMargin/VBoxContainer/ButtonsHBoxContainer" unique_id=1176891389]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Refresh"
+
+[node name="JoinLobbyFromListButton" type="Button" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/FindLobbyMargin/VBoxContainer/ButtonsHBoxContainer" unique_id=152799128]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Join"
+
+[node name="ENetVBoxContainer" type="VBoxContainer" parent="MainPanel/MarginContainer/TabContainer" unique_id=1260698629]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 32
+metadata/_tab_index = 1
+metadata/_tab_name = "ENet"
+
+[node name="JoinPanel" type="PanelContainer" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer" unique_id=125002284]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel" unique_id=1559455797]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer" unique_id=1072550197]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="OptionsGrid" type="GridContainer" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer" unique_id=144373852]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="AddressLabel" type="Label" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer/OptionsGrid" unique_id=128716532]
+layout_mode = 2
+text = "Address:"
+
+[node name="AddressLineEdit" type="LineEdit" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer/OptionsGrid" unique_id=923718568]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "127.0.0.1"
+alignment = 2
+
+[node name="PortLabel" type="Label" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer/OptionsGrid" unique_id=2117571588]
+layout_mode = 2
+text = "Port:"
+
+[node name="PortSpinBox" type="SpinBox" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer/OptionsGrid" unique_id=191847306]
+layout_mode = 2
+max_value = 60000.0
+value = 47218.0
+rounded = true
+allow_greater = true
+alignment = 2
+
+[node name="JoinLobbyButton" type="Button" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer" unique_id=980186172]
+layout_mode = 2
+text = "Join"
+
+[node name="HostPanel" type="PanelContainer" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer" unique_id=1452746546]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/HostPanel" unique_id=1486033574]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/HostPanel/MarginContainer" unique_id=279516829]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="OptionsGrid" type="GridContainer" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/HostPanel/MarginContainer/VBoxContainer" unique_id=1118068399]
+layout_mode = 2
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="PortLabel" type="Label" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/HostPanel/MarginContainer/VBoxContainer/OptionsGrid" unique_id=116071890]
+layout_mode = 2
+text = "Port:"
+
+[node name="PortSpinBox" type="SpinBox" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/HostPanel/MarginContainer/VBoxContainer/OptionsGrid" unique_id=838900640]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 60000.0
+value = 47218.0
+rounded = true
+allow_greater = true
+alignment = 2
+
+[node name="HostLobbyButton" type="Button" parent="MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/HostPanel/MarginContainer/VBoxContainer" unique_id=1243755259]
+layout_mode = 2
+text = "Host"

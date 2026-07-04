@@ -1,0 +1,217 @@
+[gd_scene format=3 uid="uid://3hfeyjx6s0r8"]
+
+[ext_resource type="Script" uid="uid://bdq4qn4ow65gm" path="res://scripts/player.gd" id="1_dqkch"]
+[ext_resource type="Texture2D" uid="uid://b71y83dmvufb3" path="res://textures/kenney/googly_eye_base.png" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://c7351toivk5hb" path="res://textures/kenney/googly_eye_pupil.png" id="2_dqkch"]
+[ext_resource type="Texture2D" uid="uid://dsuta32p6pdcw" path="res://textures/kenney/googly_eye_highlight.png" id="3_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://twyl02qxwc6k" path="res://scenes/boat.tscn" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://i5oofhwbrbfm" path="res://scripts/player_cannon.gd" id="6_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://cd0kn4ose32vh" path="res://scenes/cannonball.tscn" id="7_fjrip"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qlg0r"]
+friction = 0.1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_20m8l"]
+radius = 32.0
+height = 128.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20m8l"]
+resource_local_to_scene = true
+bg_color = Color(0.92156863, 0.43529412, 0.32156864, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65502644, 0.23820707, 0.14492196, 1)
+border_blend = true
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
+properties/0/path = NodePath(".:current_hp")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:color")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dqkch"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:state")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:linear_velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:angular_velocity")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Cannon:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_re1am"]
+bg_color = Color(0.21166337, 0.21162432, 0.28341788, 1)
+border_width_top = 4
+border_width_bottom = 4
+border_color = Color(0.32876477, 0.32890218, 0.42744154, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjrip"]
+bg_color = Color(0.21166337, 0.21162432, 0.28341788, 1)
+border_width_top = 4
+border_width_bottom = 4
+border_color = Color(0.32876477, 0.32890218, 0.42744154, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Curve" id="Curve_fjrip"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_smehm"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.36078432)
+
+[node name="Player" type="RigidBody2D" unique_id=358230113 node_paths=PackedStringArray("body_panel", "client_sync", "server_sync", "camera", "cannon")]
+collision_mask = 15
+mass = 40.0
+physics_material_override = SubResource("PhysicsMaterial_qlg0r")
+center_of_mass_mode = 1
+center_of_mass = Vector2(0, 40)
+can_sleep = false
+linear_damp = 0.1
+script = ExtResource("1_dqkch")
+movement_force = 8000.0
+body_panel = NodePath("BodyPanel")
+client_sync = NodePath("ClientSynchronizer")
+server_sync = NodePath("ServerSynchronizer")
+camera = NodePath("Camera2D")
+cannon = NodePath("Cannon")
+metadata/_custom_type_script = "uid://unwhnooi7g2c"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=706896784]
+shape = SubResource("CapsuleShape2D_20m8l")
+
+[node name="BodyPanel" type="Panel" parent="." unique_id=392400059]
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
+offset_bottom = 64.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
+
+[node name="EyeLeftBase" type="TextureRect" parent="BodyPanel" unique_id=1520532316]
+clip_contents = true
+layout_mode = 0
+offset_left = 14.0
+offset_top = 16.0
+offset_right = 31.0
+offset_bottom = 33.0
+texture = ExtResource("1_qhqgy")
+expand_mode = 1
+
+[node name="EyePupil" type="TextureRect" parent="BodyPanel/EyeLeftBase" unique_id=182298226]
+clip_children = 2
+layout_mode = 0
+offset_right = 17.0
+offset_bottom = 17.0
+texture = ExtResource("2_dqkch")
+expand_mode = 1
+
+[node name="EyeHighlight" type="TextureRect" parent="BodyPanel/EyeLeftBase/EyePupil" unique_id=1571568137]
+clip_contents = true
+layout_mode = 0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 16.0
+offset_bottom = 18.0
+texture = ExtResource("3_qlg0r")
+expand_mode = 1
+
+[node name="EyeLeftBase2" type="TextureRect" parent="BodyPanel" unique_id=1930669279]
+clip_contents = true
+layout_mode = 0
+offset_left = 35.0
+offset_top = 16.0
+offset_right = 52.0
+offset_bottom = 33.0
+texture = ExtResource("1_qhqgy")
+expand_mode = 1
+
+[node name="EyePupil" type="TextureRect" parent="BodyPanel/EyeLeftBase2" unique_id=166049869]
+clip_children = 2
+layout_mode = 0
+offset_right = 17.0
+offset_bottom = 17.0
+texture = ExtResource("2_dqkch")
+expand_mode = 1
+
+[node name="EyeHighlight" type="TextureRect" parent="BodyPanel/EyeLeftBase2/EyePupil" unique_id=1207894804]
+clip_contents = true
+layout_mode = 0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 16.0
+offset_bottom = 18.0
+texture = ExtResource("3_qlg0r")
+expand_mode = 1
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1869691432]
+process_mode = 4
+replication_config = SubResource("SceneReplicationConfig_qhqgy")
+
+[node name="ClientSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=556904983]
+process_mode = 4
+replication_config = SubResource("SceneReplicationConfig_dqkch")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1245246379]
+position_smoothing_enabled = true
+
+[node name="Boat" parent="." unique_id=413082090 instance=ExtResource("5_qlg0r")]
+position = Vector2(0, 89)
+
+[node name="Cannon" type="Node2D" parent="." unique_id=427906528 node_paths=PackedStringArray("proj_origin", "proj_holder", "trajectory_line")]
+script = ExtResource("6_tuyoq")
+proj_origin = NodePath("ThingToShootFrom")
+proj_prefab = ExtResource("7_fjrip")
+proj_holder = NodePath("ProjHolder")
+trajectory_line = NodePath("TrajectoryLine2D")
+
+[node name="Barrel" type="Panel" parent="Cannon" unique_id=2016328729]
+offset_left = 15.0
+offset_top = -9.0
+offset_right = 118.0
+offset_bottom = 8.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_re1am")
+
+[node name="Head" type="Panel" parent="Cannon" unique_id=729535674]
+offset_left = 110.0
+offset_top = -12.0
+offset_right = 131.0
+offset_bottom = 11.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fjrip")
+
+[node name="ThingToShootFrom" type="Marker2D" parent="Cannon" unique_id=1344536358]
+position = Vector2(128, 0)
+
+[node name="ProjHolder" type="Node" parent="Cannon" unique_id=1750955296]
+
+[node name="TrajectoryLine2D" type="Line2D" parent="Cannon" unique_id=1874735725]
+position = Vector2(128, 0)
+points = PackedVector2Array(0, 0, 113.765, 0)
+width = 8.0
+width_curve = SubResource("Curve_fjrip")
+gradient = SubResource("Gradient_smehm")
+joint_mode = 1
+end_cap_mode = 2

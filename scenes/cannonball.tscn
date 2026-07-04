@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://cd0kn4ose32vh"]
+
+[ext_resource type="Texture2D" uid="uid://dg30dse76xoir" path="res://textures/kenney/particles/circle_05.png" id="1_77qtm"]
+[ext_resource type="Script" uid="uid://yfc2qt3g338o" path="res://scripts/cannonball.gd" id="1_402uy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dvaps"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_20m8l"]
+radius = 20.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20m8l"]
+bg_color = Color(0.20799145, 0.20799151, 0.20799136, 1)
+border_width_left = 12
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.03474644, 0.034746446, 0.034746394, 1)
+border_blend = true
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+
+[sub_resource type="Gradient" id="Gradient_402uy"]
+colors = PackedColorArray(1, 1, 1, 1, 0.39993572, 0.3999357, 0.39993563, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e1vji"]
+gradient = SubResource("Gradient_402uy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_20m8l"]
+particle_flag_disable_z = true
+angle_min = 1.0728835e-05
+angle_max = 180.00002
+inherit_velocity_ratio = 0.2
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+angular_velocity_min = -180.00002
+angular_velocity_max = 179.99998
+gravity = Vector3(0, 0, 0)
+scale_min = 0.02
+scale_max = 0.02
+color = Color(0.7263139, 0.7263139, 0.7263138, 1)
+color_ramp = SubResource("GradientTexture1D_e1vji")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_402uy"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:linear_velocity")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="Cannonball" type="RigidBody2D" unique_id=130833018 node_paths=PackedStringArray("collision_particles")]
+collision_layer = 8
+collision_mask = 15
+physics_material_override = SubResource("PhysicsMaterial_dvaps")
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_402uy")
+collision_particles = NodePath("GPUParticles2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2129819260]
+shape = SubResource("CircleShape2D_20m8l")
+
+[node name="Panel" type="Panel" parent="." unique_id=552797294]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1928209962]
+emitting = false
+amount = 30
+texture = ExtResource("1_77qtm")
+one_shot = true
+explosiveness = 0.81
+process_material = SubResource("ParticleProcessMaterial_20m8l")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1876103570]
+replication_config = SubResource("SceneReplicationConfig_402uy")

@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://bu68yu0b7blwr"]
+
+[ext_resource type="Script" uid="uid://cmwk6si6q3yuf" path="res://scripts/level.gd" id="1_7hipx"]
+[ext_resource type="Texture2D" uid="uid://dd372iq3t5wau" path="res://textures/kenney/backgrounds/backgroundColorGrass.png" id="1_eyte8"]
+[ext_resource type="Script" uid="uid://b78v3f3rqww7o" path="res://scripts/water_area_2d.gd" id="3_gr3xe"]
+[ext_resource type="PackedScene" uid="uid://cor8igwxetpgn" path="res://addons/dynamic_water_2d/water.tscn" id="4_ds0u5"]
+[ext_resource type="Script" uid="uid://bua4l45qdponu" path="res://scripts/multiplayer/spawn_area.gd" id="5_4s5u3"]
+[ext_resource type="PackedScene" uid="uid://twyl02qxwc6k" path="res://scenes/boat.tscn" id="6_eokde"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_20m8l"]
+size = Vector2(4000, 40)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20m8l"]
+bg_color = Color(0.04212162, 0.042121634, 0.04212159, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7hipx"]
+size = Vector2(400, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_re1am"]
+size = Vector2(4000, 300)
+
+[node name="LevelTemplate" type="Node2D" unique_id=1203732062 node_paths=PackedStringArray("spawn_area")]
+script = ExtResource("1_7hipx")
+spawn_area = NodePath("SpawnArea")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1692128731]
+repeat_size = Vector2(728, 0)
+repeat_times = 8
+
+[node name="BackgroundColorGrass" type="Sprite2D" parent="Parallax2D" unique_id=2106023300]
+position = Vector2(605, 340)
+scale = Vector2(0.7114787, 0.7114787)
+texture = ExtResource("1_eyte8")
+
+[node name="Bath" type="Node" parent="." unique_id=1730865555]
+
+[node name="PlaceholderGround" type="StaticBody2D" parent="Bath" unique_id=1199029886]
+position = Vector2(549, 633)
+collision_layer = 2
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/PlaceholderGround" unique_id=1978962558]
+shape = SubResource("RectangleShape2D_20m8l")
+
+[node name="Panel" type="Panel" parent="Bath/PlaceholderGround" unique_id=1515855497]
+offset_left = -1999.0
+offset_top = -20.0
+offset_right = 2001.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
+
+[node name="PlaceholderGround2" type="StaticBody2D" parent="Bath" unique_id=1026779985]
+position = Vector2(-1469, 462)
+rotation = 1.5707964
+collision_layer = 2
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/PlaceholderGround2" unique_id=813757651]
+shape = SubResource("RectangleShape2D_7hipx")
+
+[node name="Panel" type="Panel" parent="Bath/PlaceholderGround2" unique_id=1563373622]
+offset_left = -199.0
+offset_top = -20.0
+offset_right = 201.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
+
+[node name="PlaceholderGround3" type="StaticBody2D" parent="Bath" unique_id=706723453]
+position = Vector2(2571, 462)
+rotation = 1.5707964
+collision_layer = 2
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/PlaceholderGround3" unique_id=344192303]
+shape = SubResource("RectangleShape2D_7hipx")
+
+[node name="Panel" type="Panel" parent="Bath/PlaceholderGround3" unique_id=1460648167]
+offset_left = -199.0
+offset_top = -20.0
+offset_right = 201.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
+
+[node name="WaterArea2D" type="Area2D" parent="Bath" unique_id=69455820]
+position = Vector2(551, 462)
+collision_layer = 4
+collision_mask = 9
+linear_damp_space_override = 1
+angular_damp_space_override = 1
+script = ExtResource("3_gr3xe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/WaterArea2D" unique_id=1149487776]
+shape = SubResource("RectangleShape2D_re1am")
+
+[node name="Water" parent="Bath" unique_id=645988960 instance=ExtResource("4_ds0u5")]
+position = Vector2(282, 340)
+surface_color = Color(0.13333334, 0.54509807, 0.5411765, 0.6784314)
+water_color = Color(0.18039216, 0.69803923, 0.6901961, 0.44705883)
+wave_height = 10.0
+wave_speed = 2.0
+wave_width = 80.0
+point_damping = 0.9
+
+[node name="TopLeft" parent="Bath/Water" index="0"]
+position = Vector2(-1732, -30)
+
+[node name="BottomRight" parent="Bath/Water" index="1"]
+position = Vector2(2269, 274)
+
+[node name="SpawnMarker" type="Marker2D" parent="." unique_id=1629308613]
+position = Vector2(314, 25)
+
+[node name="SpawnArea" type="ColorRect" parent="." unique_id=357896222]
+offset_left = -1103.0
+offset_top = 1.0
+offset_right = 2292.0
+offset_bottom = 41.0
+script = ExtResource("5_4s5u3")
+
+[node name="Boat" parent="." unique_id=413082090 instance=ExtResource("6_eokde")]
+position = Vector2(-732, 170)
+
+[node name="Boat2" parent="." unique_id=895332264 instance=ExtResource("6_eokde")]
+position = Vector2(578, 162)
+
+[node name="Boat3" parent="." unique_id=1971345372 instance=ExtResource("6_eokde")]
+position = Vector2(1730, 166)
+
+[editable path="Bath/Water"]
