@@ -6,6 +6,10 @@ var _main_scene: String = "res://scenes/multiplayer/lobby.tscn"
 @export var _auth_failed_msg: PanelContainer
 
 
+# Replaced by authentication in the lobby!
+# Because the same account cannot join a lobby twice,
+# so people that want to join have to remain unauthenticated to be guests.
+
 func _ready() -> void:
 	# Skip if running in debug or as headless
 	if (DisplayServer.get_name() == "headless"):

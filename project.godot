@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Get Dunked"
-run/main_scene="uid://cviav7i16q00w"
+run/main_scene="uid://c4cgjipsrutvo"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

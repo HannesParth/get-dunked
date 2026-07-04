@@ -15,6 +15,9 @@ signal enet_join_pressed(address: String, port: int)
 signal enet_host_pressed(port: int)
 
 
+static var is_authenticated: bool = false
+
+
 @export_group("ENet Scene Refs")
 @export var _enet_address_edit: LineEdit
 @export var _enet_join_port_edit: SpinBox
@@ -33,6 +36,7 @@ signal enet_host_pressed(port: int)
 @export var _relay_host_name_edit: LineEdit
 @export var _relay_host_server_dropdown: OptionButton
 @export var _relay_host_visibility_dropdown: OptionButton
+@export var _relay_auth_button: Button
 @export var _relay_host_button: Button
 
 @export_subgroup("Lobby List")
@@ -51,11 +55,14 @@ func _ready() -> void:
 	_enet_host_button.pressed.connect(_on_enet_host_pressed)
 	
 	_relay_resolve_join_code_button.pressed.connect(_on_relay_resolve_pressed)
+	_relay_auth_button.pressed.connect(_on_relay_auth_pressed)
 	_relay_host_button.pressed.connect(_on_relay_host_pressed)
 	_relay_find_refresh_button.pressed.connect(_on_relay_refresh_pressed)
 	_relay_find_join_button.pressed.connect(_on_relay_join_pressed)
 	
 	# Prepare relay UI if visible
+	_relay_host_button.disabled = true
+	_relay_auth_button.disabled = false
 	if _relay_panel.visible:
 		_populate_relay_servers()
 		_load_lobby_list()
@@ -151,6 +158,24 @@ func _on_relay_host_pressed() -> void:
 	relay_host_pressed.emit(server, lobby_name, visibility_idx)
 	hide()
 
+
+func _on_relay_auth_pressed() -> void:
+	_relay_auth_button.disabled = true
+	_relay_auth_button.text = "Authenticating..."
+	
+	is_authenticated = await Ezcha.client.authenticate()
+	
+	# Check if authentication was successful
+	if is_authenticated || OS.is_debug_build():
+		print("Authenticated!")
+		_relay_auth_button.text = "Authenticated!"
+		_relay_host_button.disabled = false
+	else:
+		_relay_auth_button.text = "Authentication failed!"
+		_relay_host_button.disabled = true
+		await get_tree().create_timer(2.5).timeout
+		_relay_auth_button.disabled = false
+		_relay_auth_button.text = "Authenticate"
 
 
 

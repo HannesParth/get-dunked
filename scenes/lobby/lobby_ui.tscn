@@ -9,7 +9,7 @@ font_size = 50
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_20m8l"]
 
-[node name="UI" type="CanvasLayer" unique_id=129432372 node_paths=PackedStringArray("_enet_address_edit", "_enet_join_port_edit", "_enet_host_port_edit", "_enet_join_button", "_enet_host_button", "_relay_panel", "_relay_join_code_edit", "_relay_resolve_join_code_button", "_relay_host_name_edit", "_relay_host_server_dropdown", "_relay_host_visibility_dropdown", "_relay_host_button", "_relay_find_lobby_list", "_relay_find_refresh_button", "_relay_find_join_button")]
+[node name="UI" type="CanvasLayer" unique_id=129432372 node_paths=PackedStringArray("_enet_address_edit", "_enet_join_port_edit", "_enet_host_port_edit", "_enet_join_button", "_enet_host_button", "_relay_panel", "_relay_join_code_edit", "_relay_resolve_join_code_button", "_relay_host_name_edit", "_relay_host_server_dropdown", "_relay_host_visibility_dropdown", "_relay_auth_button", "_relay_host_button", "_relay_find_lobby_list", "_relay_find_refresh_button", "_relay_find_join_button")]
 script = ExtResource("1_lvof1")
 _enet_address_edit = NodePath("MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer/OptionsGrid/AddressLineEdit")
 _enet_join_port_edit = NodePath("MainPanel/MarginContainer/TabContainer/ENetVBoxContainer/JoinPanel/MarginContainer/VBoxContainer/OptionsGrid/PortSpinBox")
@@ -22,6 +22,7 @@ _relay_resolve_join_code_button = NodePath("MainPanel/MarginContainer/TabContain
 _relay_host_name_edit = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer/ServerNameLineEdit")
 _relay_host_server_dropdown = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer/ServerDropdown")
 _relay_host_visibility_dropdown = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer/VisibilityDropdown")
+_relay_auth_button = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/AuthenticateButton")
 _relay_host_button = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/HostLobbyButton")
 _relay_find_lobby_list = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/FindLobbyMargin/VBoxContainer/LobbyItemList")
 _relay_find_refresh_button = NodePath("MainPanel/MarginContainer/TabContainer/RelayTabs/FindLobbyMargin/VBoxContainer/ButtonsHBoxContainer/RefreshLobbyListButton")
@@ -161,6 +162,10 @@ text = "Visibility:"
 
 [node name="VisibilityDropdown" type="OptionButton" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer/GridContainer" unique_id=1114903765]
 layout_mode = 2
+
+[node name="AuthenticateButton" type="Button" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer" unique_id=360655609]
+layout_mode = 2
+text = "Authenticate"
 
 [node name="HostLobbyButton" type="Button" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel/MarginContainer/VBoxContainer" unique_id=2044050233]
 layout_mode = 2

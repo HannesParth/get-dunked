@@ -5,7 +5,16 @@ extends Node2D
 # Tutorial problems:
 # - custom properties that we want to sync through the MultiplayerSynchronizer
 #   need to be exported. Not mentioned. export_custom does not work
-# - 
+# - How exactly the different forms of authentication work should be made clearer.
+#   session IDs use your account (obiously in retrospect) and joining with the
+#   same account twice (also obviously) does not work.
+#   The only other way to rest Relay is to export for a web embed
+#
+# - I would also just generally want to know the rules of when a session ID 
+#   becomes invalid (because it is removed from the Plugin Configuration tab)
+# - Even if a launcher will still take a while, being able to create longer 
+#   lasting / permanent session IDs or give out some kind of auth token that
+#   also allows hosting sessions would be awesome
 
 const DEFAULT_PORT: int = 47218
 
@@ -130,19 +139,6 @@ func _on_relay_lobby_joined() -> void:
 
 func _on_relay_user_connected(peer_id: int, _user: EzchaUser) -> void:
 	push_warning("User connected: ", peer_id)
-	
-	await get_tree().create_timer(0.5).timeout
-	while (
-			multiplayer.multiplayer_peer.get_connection_status() 
-			!= MultiplayerPeer.CONNECTION_CONNECTED
-			|| (multiplayer.multiplayer_peer as EzchaRelayMultiplayerPeer).get_operation()
-			== EzchaRelayMultiplayerPeer.Operation.HANDSHAKE
-	):
-		await get_tree().create_timer(0.5).timeout
-		push_warning("Waiting connection and handshake")
-	
-	push_warning("Finished waiting for user connection")
-	
 	# Handle player spawn if hosting
 	if !multiplayer.is_server(): 
 		return
