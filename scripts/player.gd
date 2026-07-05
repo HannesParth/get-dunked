@@ -101,7 +101,6 @@ func teleport(new_pos: Vector2) -> void:
 	global_position = new_pos
 	state = State.IDLE
 	freeze = false
-	print("Teleported to: ", new_pos)
 
 #endregion
 

@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://b71y83dmvufb3" path="res://textures/kenney/googly_eye_base.png" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://c7351toivk5hb" path="res://textures/kenney/googly_eye_pupil.png" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dsuta32p6pdcw" path="res://textures/kenney/googly_eye_highlight.png" id="3_qlg0r"]
-[ext_resource type="PackedScene" uid="uid://twyl02qxwc6k" path="res://scenes/boat.tscn" id="5_qlg0r"]
 [ext_resource type="Script" uid="uid://i5oofhwbrbfm" path="res://scripts/player_cannon.gd" id="6_tuyoq"]
 [ext_resource type="PackedScene" uid="uid://cd0kn4ose32vh" path="res://scenes/cannonball.tscn" id="7_fjrip"]
 
@@ -177,9 +176,6 @@ replication_config = SubResource("SceneReplicationConfig_dqkch")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1245246379]
 position_smoothing_enabled = true
-
-[node name="Boat" parent="." unique_id=413082090 instance=ExtResource("5_qlg0r")]
-position = Vector2(0, 89)
 
 [node name="Cannon" type="Node2D" parent="." unique_id=427906528 node_paths=PackedStringArray("proj_origin", "proj_holder", "trajectory_line")]
 script = ExtResource("6_tuyoq")

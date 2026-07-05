@@ -3,20 +3,26 @@
 [ext_resource type="Script" uid="uid://drbqhbfsb5cv7" path="res://addons/ezcha_network/lib/class/multiplayer_spawner.gd" id="1_1ig7j"]
 [ext_resource type="Script" uid="uid://dvgh5qwkvvmvs" path="res://scripts/multiplayer/lobby.gd" id="1_ukx7c"]
 [ext_resource type="PackedScene" uid="uid://3hfeyjx6s0r8" path="res://scenes/player.tscn" id="2_jekxk"]
+[ext_resource type="PackedScene" uid="uid://twyl02qxwc6k" path="res://scenes/boat.tscn" id="3_i6yme"]
 [ext_resource type="PackedScene" uid="uid://cuui436eax7hf" path="res://scenes/lobby/lobby_ui.tscn" id="4_jekxk"]
 
-[node name="Lobby" type="Node2D" unique_id=1232812813 node_paths=PackedStringArray("_player_spawner", "_level_spawner", "_level_holder", "_player_holder", "_ui")]
+[node name="Lobby" type="Node2D" unique_id=1232812813 node_paths=PackedStringArray("_player_spawner", "_level_spawner", "_boat_spawner", "_level_holder", "_player_holder", "_boat_holder", "_ui")]
 script = ExtResource("1_ukx7c")
 player_prefab = ExtResource("2_jekxk")
+boat_prefab = ExtResource("3_i6yme")
 _player_spawner = NodePath("PlayerSpawner")
 _level_spawner = NodePath("LevelSpawner")
+_boat_spawner = NodePath("BoatSpawner")
 _level_holder = NodePath("Level")
 _player_holder = NodePath("Players")
+_boat_holder = NodePath("Boats")
 _ui = NodePath("UI")
 
 [node name="Level" type="Node2D" parent="." unique_id=1794544230]
 
 [node name="Players" type="Node2D" parent="." unique_id=729280463]
+
+[node name="Boats" type="Node2D" parent="." unique_id=1792259192]
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="." unique_id=1132212224]
 _spawnable_scenes = PackedStringArray("uid://bu68yu0b7blwr")
@@ -29,6 +35,12 @@ metadata/_custom_type_script = "uid://drbqhbfsb5cv7"
 _spawnable_scenes = PackedStringArray("uid://3hfeyjx6s0r8")
 spawn_path = NodePath("../Players")
 spawn_limit = 8
+script = ExtResource("1_1ig7j")
+metadata/_custom_type_script = "uid://drbqhbfsb5cv7"
+
+[node name="BoatSpawner" type="MultiplayerSpawner" parent="." unique_id=1829639204]
+_spawnable_scenes = PackedStringArray("uid://twyl02qxwc6k")
+spawn_path = NodePath("../Boats")
 script = ExtResource("1_1ig7j")
 metadata/_custom_type_script = "uid://drbqhbfsb5cv7"
 

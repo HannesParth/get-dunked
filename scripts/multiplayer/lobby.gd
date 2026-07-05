@@ -20,11 +20,14 @@ const DEFAULT_PORT: int = 47218
 
 
 @export var player_prefab: PackedScene
+@export var boat_prefab: PackedScene
 
 @export var _player_spawner: MultiplayerSpawner
 @export var _level_spawner: MultiplayerSpawner
+@export var _boat_spawner: MultiplayerSpawner
 @export var _level_holder: Node2D
 @export var _player_holder: Node2D
+@export var _boat_holder: Node2D
 @export var _ui: LobbyUI
 
 
@@ -281,7 +284,10 @@ func spawn_player(peer_id: int) -> void:
 		push_error("Level not set!")
 		return
 	
-	player.teleport.rpc(level.get_spawn_position())
+	var pos: Vector2 = level.get_spawn_position()
+	player.teleport.rpc(pos)
+	
+	spawn_boat(peer_id, pos + Vector2.DOWN * 100)
 
 
 func remove_player(peer_id: int) -> void:
@@ -299,3 +305,13 @@ func remove_player(peer_id: int) -> void:
 func teleport_players(new_pos: Vector2) -> void:
 	for player: Player in get_players():
 		player.teleport.rpc(new_pos)
+
+
+# --- Boat Management ---
+
+func spawn_boat(peer_id: int, global_pos: Vector2) -> void:
+	var boat: Boat = boat_prefab.instantiate()
+	boat.name = "%s_boat" % peer_id
+	
+	_boat_holder.add_child(boat)
+	boat.teleport.rpc(global_pos)
