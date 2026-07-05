@@ -5,7 +5,12 @@
 [ext_resource type="Script" uid="uid://b78v3f3rqww7o" path="res://scripts/water_area_2d.gd" id="3_gr3xe"]
 [ext_resource type="PackedScene" uid="uid://cor8igwxetpgn" path="res://addons/dynamic_water_2d/water.tscn" id="4_ds0u5"]
 [ext_resource type="Script" uid="uid://bua4l45qdponu" path="res://scripts/multiplayer/spawn_area.gd" id="5_4s5u3"]
-[ext_resource type="PackedScene" uid="uid://twyl02qxwc6k" path="res://scenes/boat.tscn" id="6_eokde"]
+[ext_resource type="Script" uid="uid://c34ay5rop44c3" path="res://scripts/ui/level_ui.gd" id="6_hq32h"]
+[ext_resource type="Theme" uid="uid://bs41s7eox2ifx" path="res://themes/label_header_theme.tres" id="6_j81xe"]
+[ext_resource type="Script" uid="uid://ctyt4tssk0lb" path="res://addons/TweenSuite/TweenNode.gd" id="7_j81xe"]
+[ext_resource type="Script" uid="uid://bt3ws3kipvotr" path="res://addons/TweenSuite/TweenAnimation.gd" id="8_qvykx"]
+[ext_resource type="Script" uid="uid://cuctw1bl5f1nq" path="res://scripts/ui/countdown_label.gd" id="9_qvykx"]
+[ext_resource type="Theme" uid="uid://dc53l5oo38ol6" path="res://themes/label_normal_theme.tres" id="10_bujjw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_20m8l"]
 size = Vector2(4000, 40)
@@ -19,17 +24,149 @@ size = Vector2(400, 40)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_re1am"]
 size = Vector2(4000, 300)
 
-[node name="LevelTemplate" type="Node2D" unique_id=1203732062 node_paths=PackedStringArray("spawn_area")]
+[sub_resource type="Resource" id="Resource_20m8l"]
+script = ExtResource("8_qvykx")
+step_0/0 = {
+"delay": 0.0,
+"duration": 0.8,
+"easing": 1,
+"final_value": Vector2(0, 0),
+"from": Vector2(850, 0),
+"from_current": false,
+"property": NodePath(":offset_transform_position"),
+"relative": false,
+"target": NodePath("."),
+"transition": 1,
+"type": 0
+}
+step_1/0 = {
+"delay": 1.5,
+"duration": 0.8,
+"easing": 0,
+"final_value": Vector2(-850, 0),
+"from": Vector2(0, 0),
+"from_current": false,
+"property": NodePath(":offset_transform_position"),
+"relative": false,
+"target": NodePath("."),
+"transition": 1,
+"type": 0
+}
+metadata/_custom_type_script = "uid://bt3ws3kipvotr"
+
+[sub_resource type="Resource" id="Resource_j81xe"]
+script = ExtResource("8_qvykx")
+step_0/0 = {
+"delay": 1.0,
+"duration": 0.8,
+"easing": 1,
+"final_value": Vector2(0, 0),
+"from": Vector2(850, 0),
+"from_current": false,
+"property": NodePath(":offset_transform_position"),
+"relative": false,
+"target": NodePath("."),
+"transition": 1,
+"type": 0
+}
+step_1/0 = {
+"delay": 1.5,
+"duration": 0.8,
+"easing": 0,
+"final_value": Vector2(-850, 0),
+"from": Vector2(0, 0),
+"from_current": false,
+"property": NodePath(":offset_transform_position"),
+"relative": false,
+"target": NodePath("."),
+"transition": 1,
+"type": 0
+}
+step_2/0 = {
+"delay": 0.0,
+"method": &"show",
+"target": NodePath("../../CountdownLabel"),
+"type": 2
+}
+step_2/1 = {
+"delay": 0.0,
+"method": &"start_countdown",
+"target": NodePath("../../CountdownLabel"),
+"type": 2
+}
+metadata/_custom_type_script = "uid://bt3ws3kipvotr"
+
+[sub_resource type="Resource" id="Resource_re1am"]
+script = ExtResource("8_qvykx")
+step_0/0 = {
+"delay": 0.0,
+"duration": 0.3,
+"easing": 2,
+"final_value": Vector2(1.5, 1.5),
+"from": Vector2(1, 1),
+"from_current": false,
+"property": NodePath(":offset_transform_scale"),
+"relative": false,
+"target": NodePath("."),
+"transition": 1,
+"type": 0
+}
+step_0/1 = {
+"delay": 0.4,
+"method": &"_count_down",
+"target": NodePath("."),
+"type": 2
+}
+step_1/0 = {
+"delay": 0.0,
+"duration": 0.7,
+"easing": 1,
+"final_value": Vector2(1, 1),
+"from": Vector2(1.5, 1.5),
+"from_current": false,
+"property": NodePath(":offset_transform_scale"),
+"relative": false,
+"target": NodePath("."),
+"transition": 6,
+"type": 0
+}
+metadata/_custom_type_script = "uid://bt3ws3kipvotr"
+
+[sub_resource type="Resource" id="Resource_e1vji"]
+script = ExtResource("8_qvykx")
+step_0/0 = {
+"delay": 0.0,
+"duration": 1.0,
+"easing": -1,
+"final_value": 0,
+"from": null,
+"from_current": true,
+"property": NodePath(":self_modulate:a"),
+"relative": false,
+"target": NodePath("."),
+"transition": -1,
+"type": 0
+}
+step_1/0 = {
+"delay": 0.0,
+"method": &"hide",
+"target": NodePath("."),
+"type": 2
+}
+metadata/_custom_type_script = "uid://bt3ws3kipvotr"
+
+[node name="LevelTemplate" type="Node2D" unique_id=1203732062 node_paths=PackedStringArray("spawn_area", "_ui")]
 script = ExtResource("1_7hipx")
 spawn_area = NodePath("SpawnArea")
+_ui = NodePath("LevelUI")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1692128731]
-repeat_size = Vector2(728, 0)
-repeat_times = 8
+repeat_size = Vector2(1228, 0)
+repeat_times = 6
 
 [node name="BackgroundColorGrass" type="Sprite2D" parent="Parallax2D" unique_id=2106023300]
-position = Vector2(605, 340)
-scale = Vector2(0.7114787, 0.7114787)
+position = Vector2(605, 128)
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_eyte8")
 
 [node name="Bath" type="Node" parent="." unique_id=1730865555]
@@ -112,18 +249,147 @@ position = Vector2(314, 25)
 
 [node name="SpawnArea" type="ColorRect" parent="." unique_id=357896222]
 offset_left = -1103.0
-offset_top = 1.0
+offset_top = -46.0
 offset_right = 2292.0
 offset_bottom = 41.0
 script = ExtResource("5_4s5u3")
 
-[node name="Boat" parent="." unique_id=413082090 instance=ExtResource("6_eokde")]
-position = Vector2(-732, 170)
+[node name="LevelUI" type="CanvasLayer" parent="." unique_id=337074041 node_paths=PackedStringArray("_to_dunk_tween", "_be_dunked_tween", "_countdown_label", "_lobby_panel", "_player_list", "_wait_for_host_label", "_host_start_game_button")]
+script = ExtResource("6_hq32h")
+_player_label_theme = ExtResource("10_bujjw")
+_to_dunk_tween = NodePath("MarginContainer/CenterContainer/VBoxContainer/ToDunkLabel/TweenNode")
+_be_dunked_tween = NodePath("MarginContainer/CenterContainer/VBoxContainer/GetDunkedLabel/TweenNode")
+_countdown_label = NodePath("MarginContainer/CenterContainer/CountdownLabel")
+_lobby_panel = NodePath("MarginContainer/CenterContainer/ShowLobbyPanel")
+_player_list = NodePath("MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel/VBoxContainer/ScrollContainer/PlayerListVBox")
+_wait_for_host_label = NodePath("MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/StartGamePanel/WaitForHostLabel")
+_host_start_game_button = NodePath("MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/StartGamePanel/HostStartGameButton")
 
-[node name="Boat2" parent="." unique_id=895332264 instance=ExtResource("6_eokde")]
-position = Vector2(578, 162)
+[node name="MarginContainer" type="MarginContainer" parent="LevelUI" unique_id=594425700]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_bottom = 300
 
-[node name="Boat3" parent="." unique_id=1971345372 instance=ExtResource("6_eokde")]
-position = Vector2(1730, 166)
+[node name="CenterContainer" type="CenterContainer" parent="LevelUI/MarginContainer" unique_id=1648402432]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelUI/MarginContainer/CenterContainer" unique_id=299674229]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ToDunkLabel" type="Label" parent="LevelUI/MarginContainer/CenterContainer/VBoxContainer" unique_id=912034358]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(850, 0)
+theme = ExtResource("6_j81xe")
+text = "To dunk..."
+horizontal_alignment = 1
+
+[node name="TweenNode" type="Node" parent="LevelUI/MarginContainer/CenterContainer/VBoxContainer/ToDunkLabel" unique_id=48648306]
+script = ExtResource("7_j81xe")
+animation = SubResource("Resource_20m8l")
+default_transition = 1
+default_easing = 0
+metadata/_custom_type_script = "uid://ctyt4tssk0lb"
+
+[node name="GetDunkedLabel" type="Label" parent="LevelUI/MarginContainer/CenterContainer/VBoxContainer" unique_id=1823038089]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(850, 0)
+theme = ExtResource("6_j81xe")
+text = "...or to get dunked"
+horizontal_alignment = 1
+
+[node name="TweenNode" type="Node" parent="LevelUI/MarginContainer/CenterContainer/VBoxContainer/GetDunkedLabel" unique_id=843252240]
+script = ExtResource("7_j81xe")
+animation = SubResource("Resource_j81xe")
+default_transition = 1
+default_easing = 0
+metadata/_custom_type_script = "uid://ctyt4tssk0lb"
+
+[node name="CountdownLabel" type="Label" parent="LevelUI/MarginContainer/CenterContainer" unique_id=1322992751]
+visible = false
+layout_mode = 2
+offset_transform_enabled = true
+theme = ExtResource("6_j81xe")
+theme_override_font_sizes/font_size = 100
+text = "3"
+script = ExtResource("9_qvykx")
+
+[node name="TweenNode" type="Node" parent="LevelUI/MarginContainer/CenterContainer/CountdownLabel" unique_id=1821953227]
+script = ExtResource("7_j81xe")
+animation = SubResource("Resource_re1am")
+loops = 3
+metadata/_custom_type_script = "uid://ctyt4tssk0lb"
+
+[node name="FadeOutTween" type="Node" parent="LevelUI/MarginContainer/CenterContainer/CountdownLabel" unique_id=1544996792]
+script = ExtResource("7_j81xe")
+animation = SubResource("Resource_e1vji")
+metadata/_custom_type_script = "uid://ctyt4tssk0lb"
+
+[node name="ShowLobbyPanel" type="PanelContainer" parent="LevelUI/MarginContainer/CenterContainer" unique_id=382747812]
+visible = false
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelUI/MarginContainer/CenterContainer/ShowLobbyPanel" unique_id=625352763]
+layout_mode = 2
+
+[node name="PlayerListPanel" type="PanelContainer" parent="LevelUI/MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer" unique_id=809718178]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelUI/MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel" unique_id=444196268]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LevelUI/MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel/VBoxContainer" unique_id=1159081646]
+layout_mode = 2
+theme = ExtResource("6_j81xe")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "Players"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LevelUI/MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel/VBoxContainer" unique_id=1204896842]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="PlayerListVBox" type="VBoxContainer" parent="LevelUI/MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel/VBoxContainer/ScrollContainer" unique_id=902968299]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="LevelUI/MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel/VBoxContainer/ScrollContainer/PlayerListVBox" unique_id=1639696054]
+layout_mode = 2
+theme = ExtResource("10_bujjw")
+text = "Player One"
+horizontal_alignment = 1
+
+[node name="StartGamePanel" type="PanelContainer" parent="LevelUI/MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer" unique_id=1800378859]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WaitForHostLabel" type="Label" parent="LevelUI/MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/StartGamePanel" unique_id=428911201]
+visible = false
+layout_mode = 2
+offset_transform_enabled = true
+theme = ExtResource("10_bujjw")
+text = "Wait for 
+the host 
+to start..."
+horizontal_alignment = 1
+
+[node name="HostStartGameButton" type="Button" parent="LevelUI/MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/StartGamePanel" unique_id=1529848501]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("10_bujjw")
+text = "Start"
 
 [editable path="Bath/Water"]

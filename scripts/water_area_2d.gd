@@ -175,7 +175,11 @@ func _apply_side_buoyancy_force(
 	var position_offset: Vector2 = (
 			side_position - p_body.global_position
 	)
-
+	
+	var custom_multi: Variant = p_body.get(&"buoyancy_multiplier")
+	if custom_multi != null:
+		force_magnitude = force_magnitude * (custom_multi as float)
+	
 	p_body.apply_force(Vector2.UP * force_magnitude, position_offset)
 
 
@@ -203,6 +207,8 @@ func _check_submersion_signals(
 	if p_current_ratio >= 1.0 && !p_body_data.fully_submerged_emitted:
 		p_body_data.fully_submerged_emitted = true
 		body_fully_submerged.emit(p_body)
+		if p_body.has_method(&"submerged_fully"):
+			p_body.call(&"submerged_fully")
 	elif p_current_ratio < 1.0:
 		p_body_data.fully_submerged_emitted = false
 

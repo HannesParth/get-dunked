@@ -21,13 +21,19 @@ const PLAYER_COLORS: Array[Color] = [
 	Color(0.843, 0.886, 0.122, 1.0)
 ]
 
-@export_group("Config")
 
+
+@export var showcase_only: bool = false
+
+
+@export_group("Config")
 @export var _max_hp: int = 10
+
+@export var buoyancy_multiplier: float = 0.4
 
 ## The force applied to the body when moving left or right.
 @export_custom(PROPERTY_HINT_NONE, "suffix:px/s²") 
-var movement_force: float = 800.0
+var movement_force: float = 1200.0
 
 @export_custom(PROPERTY_HINT_NONE, "suffix:px/s²") 
 var hit_force: float = 800.0
@@ -50,9 +56,13 @@ var hit_cooldown_ms: int = 100
 @export var camera: Camera2D
 @export var cannon: PlayerCannon
 
+@export var alive_eyes: Array[TextureRect] = []
+@export var deadge_eyes: Array[Control] = []
+
 
 @export_group("Sync Refs")
 @export var current_hp: int = 20
+@export var is_dead: bool = false
 
 @export var color: int = 0: # Determines which color to display as
 	set(value):
@@ -74,6 +84,9 @@ var _hit_time_ms: int = 0
 
 
 func _enter_tree() -> void:
+	if showcase_only:
+		return
+	
 	# Set node authority
 	# Name is set to peer id by lobby when spawning
 	peer_id = int(name)
@@ -86,6 +99,10 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	if showcase_only:
+		camera.queue_free()
+		return
+	
 	if local:
 		# Activate the camera if local
 		camera.make_current()
@@ -107,6 +124,18 @@ func teleport(new_pos: Vector2) -> void:
 
 # --- Public Helpers ---
 
+func submerged_fully() -> void:
+	if !Level.is_gameplay_active:
+		return
+	
+	is_dead = true
+	for eye: Control in alive_eyes:
+		eye.hide()
+	for eye: Control in deadge_eyes:
+		eye.show()
+	cannon.block_input = true
+
+
 func hit_by(other: Node2D) -> void:
 	if (state == State.HIT): return
 	_hit_time_ms = Time.get_ticks_msec()
@@ -118,6 +147,8 @@ func hit_by(other: Node2D) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if !local:
+		return
+	if is_dead:
 		return
 	
 	var input_direction: float = Input.get_axis("move_left", "move_right")
@@ -131,6 +162,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _integrate_forces(phys_state: PhysicsDirectBodyState2D) -> void:
+	# Limit velocity
 	var velocity: Vector2 = phys_state.linear_velocity
 	velocity.x = clampf(velocity.x, -maximum_speed, maximum_speed)
 	phys_state.linear_velocity = velocity
@@ -139,6 +171,8 @@ func _integrate_forces(phys_state: PhysicsDirectBodyState2D) -> void:
 # --- Internal Helpers ---
 
 func _apply_movement_force(p_direction: float) -> void:
+	if !Level.is_gameplay_active:
+		return
 	if p_direction == 0.0:
 		return
 	

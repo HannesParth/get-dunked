@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cqn1hap35m7v4"]
+
+[ext_resource type="Shader" uid="uid://bra10jhqdmgc1" path="res://shaders/discrete_clouds.gdshader" id="1_qb7eh"]
+[ext_resource type="Texture2D" uid="uid://dnh5mtxltqhyq" path="res://textures/bubbles.png" id="2_yigbi"]
+
+[resource]
+shader = ExtResource("1_qb7eh")
+shader_parameter/bottom_color = Color(0.13725491, 0.7490196, 0.4627451, 1)
+shader_parameter/top_color = Color(1, 1, 1, 1)
+shader_parameter/tex = ExtResource("2_yigbi")
+shader_parameter/layer_count = 3
+shader_parameter/time_scale = 0.030000001425
+shader_parameter/base_intensity = 0.1550000073625
+shader_parameter/size = 0.37501001781224996

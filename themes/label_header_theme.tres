@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://bs41s7eox2ifx"]
+
+[ext_resource type="FontFile" uid="uid://b7tqjtspp2iwj" path="res://fonts/Barriecito/Barriecito-Regular.ttf" id="1_k8sl5"]
+
+[resource]
+default_font = ExtResource("1_k8sl5")
+default_font_size = 60
+Label/colors/font_color = Color(0, 0, 0, 1)

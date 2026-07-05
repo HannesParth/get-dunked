@@ -54,8 +54,8 @@ properties/1/replication_mode = 1
 [node name="Cannonball" type="RigidBody2D" unique_id=130833018 node_paths=PackedStringArray("collision_particles")]
 collision_layer = 8
 collision_mask = 15
+mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_dvaps")
-gravity_scale = 0.0
 freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 2

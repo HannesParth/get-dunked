@@ -32,11 +32,11 @@ script = ExtResource("1_0063d")
 [node name="Panel" type="Panel" parent="." unique_id=158775619]
 offset_left = -100.0
 offset_right = 100.0
-offset_bottom = 80.0
+offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=2041664991]
-polygon = PackedVector2Array(100, 0, 100, 80, -100, 80, -100, 0, -80, 0, -80, 60, 80, 60, 80, 0)
+polygon = PackedVector2Array(100, 0, 100, 40, -100, 40, -100, 0, -80, 0, -80, 20, 80, 20, 80, 0)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=994531938]
 replication_config = SubResource("SceneReplicationConfig_t7twq")

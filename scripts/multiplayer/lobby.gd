@@ -24,7 +24,6 @@ const DEFAULT_PORT: int = 47218
 
 @export var _player_spawner: MultiplayerSpawner
 @export var _level_spawner: MultiplayerSpawner
-@export var _boat_spawner: MultiplayerSpawner
 @export var _level_holder: Node2D
 @export var _player_holder: Node2D
 @export var _boat_holder: Node2D
@@ -213,6 +212,8 @@ func load_level(new_level_idx: int) -> void:
 	# Free previous level
 	if level != null: 
 		level.queue_free()
+	for child: Node in _level_holder.get_children():
+		child.queue_free()
 	
 	# Load new level
 	var level_scn: PackedScene = load(level_path)

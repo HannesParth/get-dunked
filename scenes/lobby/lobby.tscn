@@ -5,20 +5,33 @@
 [ext_resource type="PackedScene" uid="uid://3hfeyjx6s0r8" path="res://scenes/player.tscn" id="2_jekxk"]
 [ext_resource type="PackedScene" uid="uid://twyl02qxwc6k" path="res://scenes/boat.tscn" id="3_i6yme"]
 [ext_resource type="PackedScene" uid="uid://cuui436eax7hf" path="res://scenes/lobby/lobby_ui.tscn" id="4_jekxk"]
+[ext_resource type="PackedScene" uid="uid://bu68yu0b7blwr" path="res://scenes/levels/level_template.tscn" id="4_stkcr"]
 
-[node name="Lobby" type="Node2D" unique_id=1232812813 node_paths=PackedStringArray("_player_spawner", "_level_spawner", "_boat_spawner", "_level_holder", "_player_holder", "_boat_holder", "_ui")]
+[node name="Lobby" type="Node2D" unique_id=1232812813 node_paths=PackedStringArray("_player_spawner", "_level_spawner", "_level_holder", "_player_holder", "_boat_holder", "_ui")]
 script = ExtResource("1_ukx7c")
 player_prefab = ExtResource("2_jekxk")
 boat_prefab = ExtResource("3_i6yme")
 _player_spawner = NodePath("PlayerSpawner")
 _level_spawner = NodePath("LevelSpawner")
-_boat_spawner = NodePath("BoatSpawner")
 _level_holder = NodePath("Level")
 _player_holder = NodePath("Players")
 _boat_holder = NodePath("Boats")
 _ui = NodePath("UI")
 
 [node name="Level" type="Node2D" parent="." unique_id=1794544230]
+
+[node name="LevelTemplate" parent="Level" unique_id=1203732062 instance=ExtResource("4_stkcr")]
+showcase_only = true
+
+[node name="LevelUI" parent="Level/LevelTemplate" index="4" unique_id=337074041]
+showcase_only = true
+
+[node name="Player" parent="Level" unique_id=358230113 instance=ExtResource("2_jekxk")]
+position = Vector2(817, 157)
+showcase_only = true
+
+[node name="Boat" parent="Level" unique_id=413082090 instance=ExtResource("3_i6yme")]
+position = Vector2(820, 238)
 
 [node name="Players" type="Node2D" parent="." unique_id=729280463]
 
@@ -45,3 +58,6 @@ script = ExtResource("1_1ig7j")
 metadata/_custom_type_script = "uid://drbqhbfsb5cv7"
 
 [node name="UI" parent="." unique_id=129432372 instance=ExtResource("4_jekxk")]
+
+[editable path="Level/LevelTemplate"]
+[editable path="Level/LevelTemplate/Bath/Water"]

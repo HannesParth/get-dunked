@@ -62,7 +62,12 @@ func _ready() -> void:
 	
 	# Prepare relay UI if visible
 	_relay_host_button.disabled = true
-	_relay_auth_button.disabled = false
+	if OS.has_feature("editor") || OS.has_feature("web"):
+		_relay_auth_button.disabled = false
+	else:
+		_relay_auth_button.disabled = true
+		_relay_auth_button.text = "Cannot authenticate!"
+	
 	if _relay_panel.visible:
 		_populate_relay_servers()
 		_load_lobby_list()
@@ -162,7 +167,6 @@ func _on_relay_host_pressed() -> void:
 func _on_relay_auth_pressed() -> void:
 	_relay_auth_button.disabled = true
 	_relay_auth_button.text = "Authenticating..."
-	
 	is_authenticated = await Ezcha.client.authenticate()
 	
 	# Check if authentication was successful

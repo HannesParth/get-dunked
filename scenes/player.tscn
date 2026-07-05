@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bdq4qn4ow65gm" path="res://scripts/player.gd" id="1_dqkch"]
 [ext_resource type="Texture2D" uid="uid://b71y83dmvufb3" path="res://textures/kenney/googly_eye_base.png" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://c7351toivk5hb" path="res://textures/kenney/googly_eye_pupil.png" id="2_dqkch"]
+[ext_resource type="Script" uid="uid://oh0ehnxq3had" path="res://scripts/eye_follow.gd" id="3_fjrip"]
 [ext_resource type="Texture2D" uid="uid://dsuta32p6pdcw" path="res://textures/kenney/googly_eye_highlight.png" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://i5oofhwbrbfm" path="res://scripts/player_cannon.gd" id="6_tuyoq"]
 [ext_resource type="PackedScene" uid="uid://cd0kn4ose32vh" path="res://scenes/cannonball.tscn" id="7_fjrip"]
@@ -27,6 +28,17 @@ corner_radius_top_left = 90
 corner_radius_top_right = 90
 corner_radius_bottom_right = 90
 corner_radius_bottom_left = 90
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhn75"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_re1am"]
+radius = 213.0
+height = 922.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qhqgy"]
 properties/0/path = NodePath(".:current_hp")
@@ -65,6 +77,12 @@ border_blend = true
 corner_radius_top_left = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1vji"]
+bg_color = Color(0.37614244, 0.37647775, 0.48171425, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4deh"]
+bg_color = Color(0.8673759, 0.3405897, 0.2658076, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjrip"]
 bg_color = Color(0.21166337, 0.21162432, 0.28341788, 1)
 border_width_top = 4
@@ -83,7 +101,7 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_smehm"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.36078432)
 
-[node name="Player" type="RigidBody2D" unique_id=358230113 node_paths=PackedStringArray("body_panel", "client_sync", "server_sync", "camera", "cannon")]
+[node name="Player" type="RigidBody2D" unique_id=358230113 node_paths=PackedStringArray("body_panel", "client_sync", "server_sync", "camera", "cannon", "alive_eyes", "deadge_eyes")]
 collision_mask = 15
 mass = 40.0
 physics_material_override = SubResource("PhysicsMaterial_qlg0r")
@@ -98,6 +116,8 @@ client_sync = NodePath("ClientSynchronizer")
 server_sync = NodePath("ServerSynchronizer")
 camera = NodePath("Camera2D")
 cannon = NodePath("Cannon")
+alive_eyes = [NodePath("BodyPanel/EyeLeftBase/EyePupil"), NodePath("BodyPanel/EyeRightBase/EyePupil")]
+deadge_eyes = [NodePath("BodyPanel/EyeLeftBase/DeadEyes"), NodePath("BodyPanel/EyeRightBase/DeadEyes")]
 metadata/_custom_type_script = "uid://unwhnooi7g2c"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=706896784]
@@ -110,8 +130,7 @@ offset_right = 32.0
 offset_bottom = 64.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
 
-[node name="EyeLeftBase" type="TextureRect" parent="BodyPanel" unique_id=1520532316]
-clip_contents = true
+[node name="EyeLeftBase" type="TextureRect" parent="BodyPanel" unique_id=1520532316 node_paths=PackedStringArray("projectile_follow_area", "pupil")]
 layout_mode = 0
 offset_left = 14.0
 offset_top = 16.0
@@ -119,6 +138,9 @@ offset_right = 31.0
 offset_bottom = 33.0
 texture = ExtResource("1_qhqgy")
 expand_mode = 1
+script = ExtResource("3_fjrip")
+projectile_follow_area = NodePath("../../ProjectileDetectionArea")
+pupil = NodePath("EyePupil")
 
 [node name="EyePupil" type="TextureRect" parent="BodyPanel/EyeLeftBase" unique_id=182298226]
 clip_children = 2
@@ -138,8 +160,44 @@ offset_bottom = 18.0
 texture = ExtResource("3_qlg0r")
 expand_mode = 1
 
-[node name="EyeLeftBase2" type="TextureRect" parent="BodyPanel" unique_id=1930669279]
-clip_contents = true
+[node name="DeadEyes" type="Control" parent="BodyPanel/EyeLeftBase" unique_id=1260809195]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="BodyPanel/EyeLeftBase/DeadEyes" unique_id=1977970746]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -1.5
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.83179605
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhn75")
+
+[node name="Panel2" type="Panel" parent="BodyPanel/EyeLeftBase/DeadEyes" unique_id=829650564]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -1.5
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -2.4796367
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhn75")
+
+[node name="EyeRightBase" type="TextureRect" parent="BodyPanel" unique_id=1930669279 node_paths=PackedStringArray("projectile_follow_area", "pupil")]
 layout_mode = 0
 offset_left = 35.0
 offset_top = 16.0
@@ -147,8 +205,11 @@ offset_right = 52.0
 offset_bottom = 33.0
 texture = ExtResource("1_qhqgy")
 expand_mode = 1
+script = ExtResource("3_fjrip")
+projectile_follow_area = NodePath("../../ProjectileDetectionArea")
+pupil = NodePath("EyePupil")
 
-[node name="EyePupil" type="TextureRect" parent="BodyPanel/EyeLeftBase2" unique_id=166049869]
+[node name="EyePupil" type="TextureRect" parent="BodyPanel/EyeRightBase" unique_id=166049869]
 clip_children = 2
 layout_mode = 0
 offset_right = 17.0
@@ -156,7 +217,7 @@ offset_bottom = 17.0
 texture = ExtResource("2_dqkch")
 expand_mode = 1
 
-[node name="EyeHighlight" type="TextureRect" parent="BodyPanel/EyeLeftBase2/EyePupil" unique_id=1207894804]
+[node name="EyeHighlight" type="TextureRect" parent="BodyPanel/EyeRightBase/EyePupil" unique_id=1207894804]
 clip_contents = true
 layout_mode = 0
 offset_left = -1.0
@@ -165,6 +226,54 @@ offset_right = 16.0
 offset_bottom = 18.0
 texture = ExtResource("3_qlg0r")
 expand_mode = 1
+
+[node name="DeadEyes" type="Control" parent="BodyPanel/EyeRightBase" unique_id=1371377038]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="BodyPanel/EyeRightBase/DeadEyes" unique_id=364842679]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -1.5
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.83179605
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhn75")
+
+[node name="Panel2" type="Panel" parent="BodyPanel/EyeRightBase/DeadEyes" unique_id=820275858]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -1.5
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -2.4796367
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhn75")
+
+[node name="ProjectileDetectionArea" type="Area2D" parent="." unique_id=347547957]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileDetectionArea" unique_id=1908040995]
+position = Vector2(0, -83)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_re1am")
+debug_color = Color(0.49411765, 0.54509807, 0.5882353, 0.23137255)
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1869691432]
 process_mode = 4
@@ -177,12 +286,13 @@ replication_config = SubResource("SceneReplicationConfig_dqkch")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1245246379]
 position_smoothing_enabled = true
 
-[node name="Cannon" type="Node2D" parent="." unique_id=427906528 node_paths=PackedStringArray("proj_origin", "proj_holder", "trajectory_line")]
+[node name="Cannon" type="Node2D" parent="." unique_id=427906528 node_paths=PackedStringArray("proj_origin", "proj_holder", "trajectory_line", "cooldown_progress")]
 script = ExtResource("6_tuyoq")
 proj_origin = NodePath("ThingToShootFrom")
 proj_prefab = ExtResource("7_fjrip")
 proj_holder = NodePath("ProjHolder")
-trajectory_line = NodePath("TrajectoryLine2D")
+trajectory_line = NodePath("../TrajectoryLine2D")
+cooldown_progress = NodePath("Barrel/CooldownProgressBar")
 
 [node name="Barrel" type="Panel" parent="Cannon" unique_id=2016328729]
 offset_left = 15.0
@@ -190,6 +300,22 @@ offset_top = -9.0
 offset_right = 118.0
 offset_bottom = 8.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_re1am")
+
+[node name="CooldownProgressBar" type="ProgressBar" parent="Cannon/Barrel" unique_id=1117774417]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -0.5
+offset_right = -8.0
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_e1vji")
+theme_override_styles/fill = SubResource("StyleBoxFlat_q4deh")
+value = 25.0
+show_percentage = false
 
 [node name="Head" type="Panel" parent="Cannon" unique_id=729535674]
 offset_left = 110.0
@@ -203,7 +329,7 @@ position = Vector2(128, 0)
 
 [node name="ProjHolder" type="Node" parent="Cannon" unique_id=1750955296]
 
-[node name="TrajectoryLine2D" type="Line2D" parent="Cannon" unique_id=1874735725]
+[node name="TrajectoryLine2D" type="Line2D" parent="." unique_id=1874735725]
 position = Vector2(128, 0)
 points = PackedVector2Array(0, 0, 113.765, 0)
 width = 8.0

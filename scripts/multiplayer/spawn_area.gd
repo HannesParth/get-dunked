@@ -1,5 +1,5 @@
 class_name SpawnArea
-extends ColorRect
+extends Control
 
 
 func get_random_spawn_point() -> Vector2:
