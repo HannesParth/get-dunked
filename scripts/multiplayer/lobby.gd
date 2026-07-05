@@ -16,6 +16,50 @@ extends Node2D
 #   lasting / permanent session IDs or give out some kind of auth token that
 #   also allows hosting sessions would be awesome
 
+# Game Jam conclusion:
+# - Ezcha is real nice, Multiplayer Nodes work, don't know about network 
+#   efficiency tho
+# - most addons have fuck all documentation
+
+# Addons:
+# Rapier Physics:
+# - they actually are more stable than default godot physics
+# - documentation is there, but by faaaar not enough for something this complex
+# - I couldn't get fluids to work in the time frame I had, and it changed 
+#   Rigidbody behaviour, so it was no drop-in replacement
+#
+# Ballistic Solutions:
+# - Does what it says, little bit confusing but documentation is not bad at all
+# -> Drop review
+#
+# Dynamic Water 2D:
+# - reaction did not work, don't know why yet
+# - no documentation, code from someone else?
+# - no safety net against dangerous values
+# - but... works, generally
+#
+# ProtonControlAnimation:
+# - Architecure and usage seemed really nice, but for some reason the last one
+#   didn't work when I used 3 of them
+# - Not up to date, not hugely dynamic
+#
+# TweenSuite:
+# - way better!
+# - really nice way of visually creating tweens and sequences
+# - biggest issue: no way to check if tween of node is ready, the method to 
+#   do that earlier triggered its own error about the delay
+# -> open issue, drop a review
+
+
+# TODO:
+# - fix client UI sync
+# - remove ENet stuff
+# - put shader on spawn area
+# - get water reaction to work
+# - nicer particles
+# - UI rework?
+# - clean up listing on ezcha
+
 const DEFAULT_PORT: int = 47218
 
 
