@@ -32,7 +32,7 @@ func _ready() -> void:
 	var peer: EzchaRelayMultiplayerPeer = multiplayer.multiplayer_peer
 	peer.user_connected.connect(_update_player_list)
 	peer.user_disconnected.connect(_update_player_list)
-	_update_player_list()
+	_update_player_list(1, null)
 	
 	_lobby_panel.visible = multiplayer.is_server()
 	_wait_for_host_label.visible = !multiplayer.is_server()
@@ -55,7 +55,7 @@ func _start_game_sequence() -> void:
 	_be_dunked_tween.play()
 
 
-func _update_player_list() -> void:
+func _update_player_list(_peer_id: int, _user: EzchaUser) -> void:
 	var peer: EzchaRelayMultiplayerPeer = multiplayer.multiplayer_peer
 	
 	for child: Node in _player_list.get_children():

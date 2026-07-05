@@ -40,6 +40,7 @@ enabled=PackedStringArray("res://addons/TweenSuite/plugin.cfg", "res://addons/ba
 
 config/global/game_id="PvJxbWz7kgCF89AD518FU"
 config/client/signing_key="31PRsUO_XVpU1EYBJzoELIzA.q_pCMxoMD4pWkR0H334laxcQ"
+config/debug/test_session="KXTpZZ1f2e_UOSfTtrv2ro4Y.GepdwY4JeZDFILushSwsjzcL"
 
 [input]
 
