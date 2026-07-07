@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://jofyn4dmmorw"]
+
+[ext_resource type="Shader" uid="uid://bheo3i4xrbof2" path="res://shaders/waveforms_shader.gdshader" id="1_jq453"]
+
+[resource]
+shader = ExtResource("1_jq453")
+shader_parameter/lines = 160
+shader_parameter/amplitude = 1.0
+shader_parameter/frequency = 0.0290000013775
+shader_parameter/intensity = 0.75
+shader_parameter/line_sharpness = 1.0
+shader_parameter/line_size = 0.4210000199975
+shader_parameter/fade = 0.0490000023275
+shader_parameter/rest_size = 0.20000010449999994
+shader_parameter/edge = 0.05
+shader_parameter/speed = 0.1
+shader_parameter/color = Color(0.92156863, 0.43529412, 0.32156864, 0.7058824)
+shader_parameter/dot_matrix = false
+shader_parameter/dot_matriz_size = 80
+shader_parameter/speech_sim = false
+shader_parameter/speech_intensity = 0.8
+shader_parameter/progress = 1.0

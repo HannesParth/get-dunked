@@ -11,4 +11,4 @@ shader_parameter/tex = ExtResource("2_yigbi")
 shader_parameter/layer_count = 3
 shader_parameter/time_scale = 0.030000001425
 shader_parameter/base_intensity = 0.1550000073625
-shader_parameter/size = 0.37501001781224996
+shader_parameter/size = 0.54201002574475

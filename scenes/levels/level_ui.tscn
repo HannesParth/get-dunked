@@ -1,0 +1,277 @@
+[gd_scene format=3 uid="uid://hot762al5gwh"]
+
+[ext_resource type="Script" uid="uid://c34ay5rop44c3" path="res://scripts/ui/level_ui.gd" id="1_w06ee"]
+[ext_resource type="Theme" uid="uid://dc53l5oo38ol6" path="res://themes/label_normal_theme.tres" id="2_ad6gm"]
+[ext_resource type="Theme" uid="uid://bs41s7eox2ifx" path="res://themes/label_header_theme.tres" id="3_6xs45"]
+[ext_resource type="Script" uid="uid://ctyt4tssk0lb" path="res://addons/TweenSuite/TweenNode.gd" id="4_vwsew"]
+[ext_resource type="Script" uid="uid://bt3ws3kipvotr" path="res://addons/TweenSuite/TweenAnimation.gd" id="5_6amqn"]
+[ext_resource type="Script" uid="uid://cuctw1bl5f1nq" path="res://scripts/ui/countdown_label.gd" id="6_bj76g"]
+
+[sub_resource type="Resource" id="Resource_20m8l"]
+script = ExtResource("5_6amqn")
+step_0/0 = {
+"delay": 0.0,
+"duration": 0.8,
+"easing": 1,
+"final_value": Vector2(0, 0),
+"from": Vector2(850, 0),
+"from_current": false,
+"property": NodePath(":offset_transform_position"),
+"relative": false,
+"target": NodePath("."),
+"transition": 1,
+"type": 0
+}
+step_1/0 = {
+"delay": 1.5,
+"duration": 0.8,
+"easing": 0,
+"final_value": Vector2(-850, 0),
+"from": Vector2(0, 0),
+"from_current": false,
+"property": NodePath(":offset_transform_position"),
+"relative": false,
+"target": NodePath("."),
+"transition": 1,
+"type": 0
+}
+metadata/_custom_type_script = "uid://bt3ws3kipvotr"
+
+[sub_resource type="Resource" id="Resource_j81xe"]
+script = ExtResource("5_6amqn")
+step_0/0 = {
+"delay": 1.0,
+"duration": 0.8,
+"easing": 1,
+"final_value": Vector2(0, 0),
+"from": Vector2(850, 0),
+"from_current": false,
+"property": NodePath(":offset_transform_position"),
+"relative": false,
+"target": NodePath("."),
+"transition": 1,
+"type": 0
+}
+step_1/0 = {
+"delay": 1.5,
+"duration": 0.8,
+"easing": 0,
+"final_value": Vector2(-850, 0),
+"from": Vector2(0, 0),
+"from_current": false,
+"property": NodePath(":offset_transform_position"),
+"relative": false,
+"target": NodePath("."),
+"transition": 1,
+"type": 0
+}
+step_2/0 = {
+"delay": 0.0,
+"method": &"show",
+"target": NodePath("../../CountdownLabel"),
+"type": 2
+}
+step_2/1 = {
+"delay": 0.0,
+"method": &"start_countdown",
+"target": NodePath("../../CountdownLabel"),
+"type": 2
+}
+metadata/_custom_type_script = "uid://bt3ws3kipvotr"
+
+[sub_resource type="Resource" id="Resource_re1am"]
+script = ExtResource("5_6amqn")
+step_0/0 = {
+"delay": 0.0,
+"duration": 0.3,
+"easing": 2,
+"final_value": Vector2(1.5, 1.5),
+"from": Vector2(1, 1),
+"from_current": false,
+"property": NodePath(":offset_transform_scale"),
+"relative": false,
+"target": NodePath("."),
+"transition": 1,
+"type": 0
+}
+step_0/1 = {
+"delay": 0.4,
+"method": &"_count_down",
+"target": NodePath("."),
+"type": 2
+}
+step_1/0 = {
+"delay": 0.0,
+"duration": 0.7,
+"easing": 1,
+"final_value": Vector2(1, 1),
+"from": Vector2(1.5, 1.5),
+"from_current": false,
+"property": NodePath(":offset_transform_scale"),
+"relative": false,
+"target": NodePath("."),
+"transition": 6,
+"type": 0
+}
+metadata/_custom_type_script = "uid://bt3ws3kipvotr"
+
+[sub_resource type="Resource" id="Resource_e1vji"]
+script = ExtResource("5_6amqn")
+step_0/0 = {
+"delay": 0.0,
+"duration": 1.0,
+"easing": -1,
+"final_value": 0,
+"from": null,
+"from_current": true,
+"property": NodePath(":self_modulate:a"),
+"relative": false,
+"target": NodePath("."),
+"transition": -1,
+"type": 0
+}
+step_1/0 = {
+"delay": 0.0,
+"method": &"hide",
+"target": NodePath("."),
+"type": 2
+}
+metadata/_custom_type_script = "uid://bt3ws3kipvotr"
+
+[node name="LevelUI" type="CanvasLayer" unique_id=1737017027 node_paths=PackedStringArray("_to_dunk_tween", "_be_dunked_tween", "_countdown_label", "_lobby_panel", "_player_list", "_wait_for_host_label", "_host_start_game_button")]
+script = ExtResource("1_w06ee")
+_player_label_theme = ExtResource("2_ad6gm")
+_to_dunk_tween = NodePath("MarginContainer/CenterContainer/VBoxContainer/ToDunkLabel/TweenNode")
+_be_dunked_tween = NodePath("MarginContainer/CenterContainer/VBoxContainer/GetDunkedLabel/TweenNode")
+_countdown_label = NodePath("MarginContainer/CenterContainer/CountdownLabel")
+_lobby_panel = NodePath("MarginContainer/CenterContainer/ShowLobbyPanel")
+_player_list = NodePath("MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel/VBoxContainer/ScrollContainer/PlayerListVBox")
+_wait_for_host_label = NodePath("MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/StartGamePanel/WaitForHostLabel")
+_host_start_game_button = NodePath("MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/StartGamePanel/HostStartGameButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1918279044]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_bottom = 300
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer" unique_id=1729553034]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer" unique_id=817920845]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ToDunkLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer" unique_id=993124844]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(850, 0)
+theme = ExtResource("3_6xs45")
+text = "To dunk..."
+horizontal_alignment = 1
+
+[node name="TweenNode" type="Node" parent="MarginContainer/CenterContainer/VBoxContainer/ToDunkLabel" unique_id=40046459]
+script = ExtResource("4_vwsew")
+animation = SubResource("Resource_20m8l")
+default_transition = 1
+default_easing = 0
+metadata/_custom_type_script = "uid://ctyt4tssk0lb"
+
+[node name="GetDunkedLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer" unique_id=555731499]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(850, 0)
+theme = ExtResource("3_6xs45")
+text = "...or to get dunked"
+horizontal_alignment = 1
+
+[node name="TweenNode" type="Node" parent="MarginContainer/CenterContainer/VBoxContainer/GetDunkedLabel" unique_id=711472573]
+script = ExtResource("4_vwsew")
+animation = SubResource("Resource_j81xe")
+default_transition = 1
+default_easing = 0
+metadata/_custom_type_script = "uid://ctyt4tssk0lb"
+
+[node name="CountdownLabel" type="Label" parent="MarginContainer/CenterContainer" unique_id=1629350595]
+visible = false
+layout_mode = 2
+offset_transform_enabled = true
+theme = ExtResource("3_6xs45")
+theme_override_font_sizes/font_size = 100
+text = "3"
+script = ExtResource("6_bj76g")
+
+[node name="TweenNode" type="Node" parent="MarginContainer/CenterContainer/CountdownLabel" unique_id=1114136406]
+script = ExtResource("4_vwsew")
+animation = SubResource("Resource_re1am")
+loops = 3
+metadata/_custom_type_script = "uid://ctyt4tssk0lb"
+
+[node name="FadeOutTween" type="Node" parent="MarginContainer/CenterContainer/CountdownLabel" unique_id=1963947878]
+script = ExtResource("4_vwsew")
+animation = SubResource("Resource_e1vji")
+metadata/_custom_type_script = "uid://ctyt4tssk0lb"
+
+[node name="ShowLobbyPanel" type="PanelContainer" parent="MarginContainer/CenterContainer" unique_id=345274061]
+visible = false
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/ShowLobbyPanel" unique_id=1544421286]
+layout_mode = 2
+
+[node name="PlayerListPanel" type="PanelContainer" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer" unique_id=1619907339]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel" unique_id=1814333810]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel/VBoxContainer" unique_id=1993316676]
+layout_mode = 2
+theme = ExtResource("3_6xs45")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "Players"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel/VBoxContainer" unique_id=575123118]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="PlayerListVBox" type="VBoxContainer" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel/VBoxContainer/ScrollContainer" unique_id=1876097395]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel/VBoxContainer/ScrollContainer/PlayerListVBox" unique_id=1277055792]
+layout_mode = 2
+theme = ExtResource("2_ad6gm")
+text = "Player One"
+horizontal_alignment = 1
+
+[node name="StartGamePanel" type="PanelContainer" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer" unique_id=1173926832]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WaitForHostLabel" type="Label" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/StartGamePanel" unique_id=379306043]
+visible = false
+layout_mode = 2
+offset_transform_enabled = true
+theme = ExtResource("2_ad6gm")
+text = "Wait for 
+the host 
+to start..."
+horizontal_alignment = 1
+
+[node name="HostStartGameButton" type="Button" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/StartGamePanel" unique_id=1817197292]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_ad6gm")
+text = "Start"

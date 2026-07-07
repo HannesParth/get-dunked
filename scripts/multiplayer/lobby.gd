@@ -52,14 +52,14 @@ extends Node2D
 
 
 # TODO:
-# - fix client UI sync
-# - remove ENet stuff
-# - put shader on spawn area
+# - (remove ENet stuff)
 # - get water reaction to work
 # - nicer particles
 # - UI rework?
 # - clean up listing on ezcha
 
+
+## For ENet only
 const DEFAULT_PORT: int = 47218
 
 

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://ccqvvbx6kr8ud"]
+
+[ext_resource type="Script" uid="uid://b8w0hp2vqj5bb" path="res://addons/dynamic_water_2d/water.gd" id="1_63c6k"]
+[ext_resource type="Script" uid="uid://blm7rq0kyulk" path="res://scripts/water_test.gd" id="1_wul0m"]
+[ext_resource type="Texture2D" uid="uid://b71y83dmvufb3" path="res://textures/kenney/googly_eye_base.png" id="3_cqlem"]
+
+[node name="Node2D" type="Node2D" unique_id=1820082257 node_paths=PackedStringArray("water", "position_marker")]
+script = ExtResource("1_wul0m")
+water = NodePath("DynamicWater2D")
+position_marker = NodePath("Sprite2D")
+
+[node name="DynamicWater2D" type="Node2D" parent="." unique_id=639891862 node_paths=PackedStringArray("top_left_marker", "bottom_right_marker")]
+position = Vector2(5, 79)
+script = ExtResource("1_63c6k")
+top_left_marker = NodePath("Marker2D")
+bottom_right_marker = NodePath("Marker2D2")
+metadata/_custom_type_script = "uid://b8w0hp2vqj5bb"
+
+[node name="Marker2D" type="Marker2D" parent="DynamicWater2D" unique_id=1691564027]
+
+[node name="Marker2D2" type="Marker2D" parent="DynamicWater2D" unique_id=1675209258]
+position = Vector2(749, 241)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1053824160]
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("3_cqlem")

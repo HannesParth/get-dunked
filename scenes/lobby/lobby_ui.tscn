@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://gcvbct505qlc" path="res://scripts/multiplayer/lobby_ui.gd" id="1_lvof1"]
 [ext_resource type="Theme" uid="uid://bs41s7eox2ifx" path="res://themes/label_header_theme.tres" id="2_b64cs"]
+[ext_resource type="Texture2D" uid="uid://cseilnu86ytf6" path="res://addons/ezcha_network/assets/export_logo.png" id="3_wjrro"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_re1am"]
 
@@ -55,6 +56,8 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_re1am")
 current_tab = 0
+tab_0/title = "Relay"
+tab_0/icon = ExtResource("3_wjrro")
 tab_1/title = "ENet"
 
 [node name="RelayTabs" type="TabContainer" parent="MainPanel/MarginContainer/TabContainer" unique_id=1671824888]
@@ -64,6 +67,7 @@ current_tab = 0
 tab_0/title = "Join/Host"
 tab_1/title = "Find a Lobby"
 metadata/_tab_index = 0
+metadata/_tab_name = "Relay"
 
 [node name="JoinOrHostLobbyMargin" type="MarginContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs" unique_id=1966265671]
 layout_mode = 2

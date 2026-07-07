@@ -23,7 +23,7 @@ _ui = NodePath("UI")
 [node name="LevelTemplate" parent="Level" unique_id=1203732062 instance=ExtResource("4_stkcr")]
 showcase_only = true
 
-[node name="LevelUI" parent="Level/LevelTemplate" index="4" unique_id=337074041]
+[node name="LevelUI" parent="Level/LevelTemplate" index="4" unique_id=1737017027]
 showcase_only = true
 
 [node name="Player" parent="Level" unique_id=358230113 instance=ExtResource("2_jekxk")]

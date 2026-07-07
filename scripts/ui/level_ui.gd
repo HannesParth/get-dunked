@@ -25,6 +25,7 @@ func _ready() -> void:
 	_host_start_game_button.pressed.connect(_on_host_start_game_pressed)
 	
 	if multiplayer.multiplayer_peer is not EzchaRelayMultiplayerPeer:
+		_lobby_panel.hide()
 		# Call directly
 		_on_host_start_game_pressed()
 		return
@@ -34,7 +35,7 @@ func _ready() -> void:
 	peer.user_disconnected.connect(_update_player_list)
 	_update_player_list(1, null)
 	
-	_lobby_panel.visible = multiplayer.is_server()
+	_lobby_panel.show()
 	_wait_for_host_label.visible = !multiplayer.is_server()
 	_host_start_game_button.visible = multiplayer.is_server()
 
