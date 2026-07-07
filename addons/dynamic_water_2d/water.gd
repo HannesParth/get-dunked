@@ -1,14 +1,26 @@
 @tool
-
-extends Node2D
 class_name DynamicWater2D
+extends Node2D
 
-## controls which node to use for pulling the top left corner of the water from.
-@export var top_left_marker: Node2D
-## controls which node to use for pulling the bottom right corner of the water from.
-@export var bottom_right_marker: Node2D
 
-@export_group("visuals")
+# Fixed bugs:
+# - _points_get_circle used global space `origin` mixed in a local space calculation
+# - point_global_pos returned position in parent space, not global space
+# - apply_force mutated given force in loop, so points later in the loop had a 
+#   different force applied to them than points earlier in the loop
+# - since the global/local space mixups were fixed, the node itself can be moved
+#   now, so the individual Marker nodes were unnecessary. Replaced then with a 
+#   single bottom_right_corner
+
+
+## Local position of the bottom right corner of the water bounds. [br]
+## Effectively distance between top left and bottom right corner.
+@export var bottom_right_corner: Vector2 = Vector2(400, 200):
+	set(value):
+		bottom_right_corner = value.max(Vector2(10.0, 10.0))
+
+
+@export_group("Visuals")
 ## controls the thickness of the surface water.
 @export var surface_thickness: float = 6.0
 ## controls the color of the water on the surface.
@@ -16,7 +28,8 @@ class_name DynamicWater2D
 ## controls the color of the water below the surface.
 @export var water_color: Color = Color("87e0d733")
 
-@export_group("waves")
+
+@export_group("Waves")
 ## enables or disables passive waves.
 @export var waves_enabled: bool = true
 ## controls how high the passive waves are.
@@ -29,7 +42,7 @@ class_name DynamicWater2D
 ## higher values means waves travel faster.
 @export var wave_spread_amount: int = 4
 
-@export_group("points")
+@export_group("Points")
 ## controls how many surface points are created per nth unit of distance.
 ## this is basically the "resolution" of the surface water.
 @export_range(2, 32, 2) var point_per_distance: int = 8
@@ -42,28 +55,41 @@ class_name DynamicWater2D
 ## higher values mean motion is transferred between points quicker.
 @export var point_neighbouring_stiffness: float = 2.0
 
+
 var top_left_point: Vector2
 var top_right_point: Vector2
 var bottom_right_point: Vector2
 var bottom_left_point: Vector2
 var extents_valid: bool = false
 
+
+## Points positions in local space
 var points_positions: PackedVector2Array = PackedVector2Array([])
 var points_motions: PackedVector2Array = PackedVector2Array([])
+
+
+func _ready() -> void:
+	_calc_extents()
+	calc_surface_points()
+
 
 func point_add(pos: Vector2) -> void:
 	points_positions.append(pos)
 	points_motions.append(Vector2.ZERO)
 
+
 func points_size() -> int:
 	return points_positions.size()
+
 
 func points_clear() -> void:
 	points_positions.clear()
 	points_motions.clear()
 
+
 func point_global_pos(point_idx: int) -> Vector2:
-	return position + points_positions[point_idx]
+	return to_global(points_positions[point_idx])
+
 
 ## add some motion (force) to a given point.
 func point_add_motion(point_idx: int, d: Vector2) -> Vector2:
@@ -71,10 +97,35 @@ func point_add_motion(point_idx: int, d: Vector2) -> Vector2:
 	points_motions[point_idx] = motion
 	return d
 
+
+## apply some force to provided position.
+## will be applied as a circle, all points in the radius will be affected.
+func apply_force(pos: Vector2, force: Vector2, radius: float = 16.0) -> void:
+	# Ignore if position outside of area horizontal
+	if (
+			point_global_pos(0).x - radius * 2 > pos.x 
+			|| point_global_pos(points_size() - 1).x + radius * 2 < pos.x
+	):
+		print("Ignored water force")
+		return
+	
+	var local_pos := to_local(pos)
+	
+	# Get points around the position
+	var idxs: Array[int] = _points_get_circle(pos, radius)
+	for idx: int in idxs:
+		# Direct force to the point
+		var dir_force: Vector2 = force * local_pos.direction_to(points_positions[idx])
+		point_add_motion(idx, force)
+	
+	print("Splashing at global: %s, local: %s, with force %s, and radius %s" % [pos, local_pos, force, radius])
+
+
 func _point_calc_motion(point_idx: int, target_y: float, stiffness: float) -> void:
 	var target_point := Vector2(point_global_pos(point_idx).x, target_y)
 	var motion := (target_point - point_global_pos(point_idx)) * stiffness
 	points_motions[point_idx] += motion
+
 
 func _point_calc_physics(point_idx: int, delta: float) -> void:
 	var motion := points_motions[point_idx]
@@ -83,6 +134,7 @@ func _point_calc_physics(point_idx: int, delta: float) -> void:
 	motion *= point_damping
 	points_motions[point_idx] = motion
 	points_positions[point_idx] = pos
+
 
 func _points_get_circle(origin: Vector2, radius: float) -> Array[int]:
 	var results: Array[int] = []
@@ -97,8 +149,8 @@ func _points_get_circle(origin: Vector2, radius: float) -> Array[int]:
 	# test which points are in the circle provided
 	for idx in range(left_most_index, right_most_index + 1):
 		var point_pos := points_positions[idx]
-		var dx := absf(point_pos.x - origin.x)
-		var dy := absf(point_pos.y - origin.y)
+		var dx := absf(point_pos.x - local_pos.x)
+		var dy := absf(point_pos.y - local_pos.y)
 		if dx + dy <= radius:
 			results.append(idx); continue
 		if dx ** 2 + dy ** 2 <= radius ** 2:
@@ -106,18 +158,10 @@ func _points_get_circle(origin: Vector2, radius: float) -> Array[int]:
 	return results
 
 
-func _ready() -> void:
-	calc_extents()
-	calc_surface_points()
-
-
 ## calculates the extents of the water.
-func calc_extents() -> void:
-	if top_left_marker == null or bottom_right_marker == null:
-		push_error("either top left or bottom right marker is not set")
-		return
-	top_left_point = top_left_marker.position
-	bottom_right_point = bottom_right_marker.position
+func _calc_extents() -> void:
+	top_left_point = Vector2.ZERO
+	bottom_right_point = bottom_right_corner
 	extents_valid = _validate_extents()
 	if not extents_valid:
 		push_error("invalid extents: top left corner cannot be bigger or equal on the X or Y axis than the bottom right corner")
@@ -145,9 +189,8 @@ func calc_surface_points() -> void:
 
 func _process(delta: float) -> void:
 	# update extents and recalculate surface points if any of our size markers change position
-	if (not top_left_point.is_equal_approx(top_left_marker.position)
-		or not bottom_right_point.is_equal_approx(bottom_right_marker.position)):
-		calc_extents()
+	if ! bottom_right_point.is_equal_approx(bottom_right_corner):
+		_calc_extents()
 		calc_surface_points()
 	# only process if extents are valid
 	if not extents_valid: return
@@ -175,22 +218,6 @@ func _process(delta: float) -> void:
 		_point_calc_physics(idx, delta)
 	
 	queue_redraw()
-
-
-## apply some force to provided position.
-## will be applied as a circle, all points in the radius will be affected.
-func apply_force(pos: Vector2, force: Vector2, radius: float = 16.0) -> void:
-	# ignore if position outside of area
-	if (point_global_pos(0).x - radius * 2) > pos.x or (point_global_pos(points_size() - 1).x + radius * 2) < pos.x:
-		print("Ignored water force")
-		return
-	var local_pos := to_local(pos)
-	# get points around the pos
-	var idxs := _points_get_circle(pos, radius)
-	for idx in idxs:
-		# direct force to the point
-		force *= local_pos.direction_to(points_positions[idx])
-		point_add_motion(idx, force)
 
 
 func _get_index_from_local_pos(x: float) -> int:

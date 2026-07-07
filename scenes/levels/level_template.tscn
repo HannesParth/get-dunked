@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cmwk6si6q3yuf" path="res://scripts/level.gd" id="1_7hipx"]
 [ext_resource type="Texture2D" uid="uid://dd372iq3t5wau" path="res://textures/kenney/backgrounds/backgroundColorGrass.png" id="1_eyte8"]
 [ext_resource type="Script" uid="uid://b78v3f3rqww7o" path="res://scripts/water_area_2d.gd" id="3_gr3xe"]
-[ext_resource type="PackedScene" uid="uid://cor8igwxetpgn" path="res://addons/dynamic_water_2d/water.tscn" id="4_ds0u5"]
 [ext_resource type="Script" uid="uid://bua4l45qdponu" path="res://scripts/multiplayer/spawn_area.gd" id="5_4s5u3"]
+[ext_resource type="Script" uid="uid://b8w0hp2vqj5bb" path="res://addons/dynamic_water_2d/water.gd" id="5_ulyey"]
 [ext_resource type="PackedScene" uid="uid://hot762al5gwh" path="res://scenes/levels/level_ui.tscn" id="6_eokde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_20m8l"]
@@ -82,7 +82,7 @@ offset_right = 201.0
 offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
 
-[node name="WaterArea2D" type="Area2D" parent="Bath" unique_id=69455820 node_paths=PackedStringArray("dynamic_water")]
+[node name="WaterArea2D" type="Area2D" parent="Bath" unique_id=69455820]
 position = Vector2(551, 462)
 collision_layer = 4
 collision_mask = 9
@@ -91,25 +91,21 @@ linear_damp = 0.0
 angular_damp_space_override = 1
 angular_damp = 0.0
 script = ExtResource("3_gr3xe")
-dynamic_water = NodePath("../Water")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/WaterArea2D" unique_id=1149487776]
 shape = SubResource("RectangleShape2D_re1am")
 
-[node name="Water" parent="Bath" unique_id=645988960 instance=ExtResource("4_ds0u5")]
-position = Vector2(282, 340)
+[node name="DynamicWater2D" type="Node2D" parent="Bath" unique_id=1825610596]
+position = Vector2(-1449, 312)
+script = ExtResource("5_ulyey")
+bottom_right_corner = Vector2(4000, 300)
 surface_color = Color(0.13333334, 0.54509807, 0.5411765, 0.6784314)
 water_color = Color(0.18039216, 0.69803923, 0.6901961, 0.44705883)
 wave_height = 10.0
 wave_speed = 2.0
 wave_width = 80.0
-point_damping = 0.9
-
-[node name="TopLeft" parent="Bath/Water" index="0"]
-position = Vector2(-1732, -30)
-
-[node name="BottomRight" parent="Bath/Water" index="1"]
-position = Vector2(2269, 274)
+point_damping = 0.97
+metadata/_custom_type_script = "uid://b8w0hp2vqj5bb"
 
 [node name="SpawnMarker" type="Marker2D" parent="." unique_id=1629308613]
 position = Vector2(314, 25)
@@ -124,5 +120,3 @@ color = Color(1, 1, 1, 0.20784314)
 script = ExtResource("5_4s5u3")
 
 [node name="LevelUI" parent="." unique_id=1737017027 instance=ExtResource("6_eokde")]
-
-[editable path="Bath/Water"]

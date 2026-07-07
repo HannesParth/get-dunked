@@ -14,6 +14,9 @@ position = Vector2(5, 79)
 script = ExtResource("1_63c6k")
 top_left_marker = NodePath("Marker2D")
 bottom_right_marker = NodePath("Marker2D2")
+bottom_right_corner = Vector2(500, 200)
+wave_height = 10.0
+wave_speed = 2.0
 metadata/_custom_type_script = "uid://b8w0hp2vqj5bb"
 
 [node name="Marker2D" type="Marker2D" parent="DynamicWater2D" unique_id=1691564027]

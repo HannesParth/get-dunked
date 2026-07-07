@@ -22,12 +22,6 @@ class TrackedBodyData:
 @export var angular_damping_factor: float = 0.5
 @export var exit_threshold: float = 0.2
 
-@export_group("Dynamic Water")
-@export var dynamic_water: DynamicWater2D
-@export var splash_force_multiplier: float = 1.0
-@export var splash_radius: float = 24.0
-@export var minimum_splash_speed: float = 40.0
-
 
 var _tracked_bodies: Dictionary[Node2D, TrackedBodyData] = {}
 
@@ -62,32 +56,11 @@ func _on_body_entered(p_body: Node2D) -> void:
 		return
 	
 	_tracked_bodies[p_body] = TrackedBodyData.new()
-	_create_splash_effect(p_body as RigidBody2D)
 
 
 func _on_body_exited(p_body: Node2D) -> void:
 	if _tracked_bodies.has(p_body):
 		_tracked_bodies.erase(p_body)
-
-
-func _create_splash_effect(p_body: RigidBody2D) -> void:
-	if dynamic_water == null:
-		return
-	
-	var entry_velocity: Vector2 = p_body.linear_velocity
-	var downward_speed: float = maxf(entry_velocity.y, 0.0)
-	
-	# ignore very slow entries so resting bodies do not keep splashing
-	if downward_speed < 2:
-		return
-	
-	var splash_force: Vector2 = (
-			Vector2.DOWN * downward_speed * splash_force_multiplier
-	)
-	# Force position has to be above the waterline to actually work!
-	var splash_position: Vector2 = p_body.global_position
-	splash_position.y = dynamic_water.global_position.y - (20 + dynamic_water.wave_height * 2)
-	dynamic_water.apply_force(splash_position, splash_force, splash_radius)
 
 
 func _update_body_buoyancy(
