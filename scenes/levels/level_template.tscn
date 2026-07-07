@@ -25,6 +25,7 @@ spawn_area = NodePath("SpawnArea")
 _ui = NodePath("LevelUI")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=1692128731]
+z_index = -2
 repeat_size = Vector2(1228, 0)
 repeat_times = 6
 

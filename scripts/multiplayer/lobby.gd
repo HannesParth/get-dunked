@@ -34,9 +34,10 @@ extends Node2D
 #
 # Dynamic Water 2D:
 # - reaction did not work, don't know why yet
+# - close to every calculation of this thing is fucked up, it's a wonder it works
+#   even sometimes, fuck this
 # - no documentation, code from someone else?
 # - no safety net against dangerous values
-# - but... works, generally
 #
 # ProtonControlAnimation:
 # - Architecure and usage seemed really nice, but for some reason the last one
@@ -53,7 +54,6 @@ extends Node2D
 
 # TODO:
 # - (remove ENet stuff)
-# - get water reaction to work
 # - nicer particles
 # - UI rework?
 # - clean up listing on ezcha

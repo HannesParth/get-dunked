@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dg30dse76xoir" path="res://textures/kenney/particles/circle_05.png" id="1_77qtm"]
 [ext_resource type="Script" uid="uid://yfc2qt3g338o" path="res://scripts/cannonball.gd" id="1_402uy"]
+[ext_resource type="Script" uid="uid://dasn2bosgufyq" path="res://scripts/trail_2d.gd" id="3_i6nt2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dvaps"]
 
@@ -51,6 +52,13 @@ properties/1/path = NodePath(".:linear_velocity")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
+[sub_resource type="Curve" id="Curve_i6nt2"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_i6nt2"]
+offsets = PackedFloat32Array(0.37971014, 1)
+
 [node name="Cannonball" type="RigidBody2D" unique_id=130833018 node_paths=PackedStringArray("collision_particles")]
 collision_layer = 8
 collision_mask = 15
@@ -82,3 +90,15 @@ process_material = SubResource("ParticleProcessMaterial_20m8l")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1876103570]
 replication_config = SubResource("SceneReplicationConfig_402uy")
+
+[node name="Trail2D" type="Line2D" parent="." unique_id=446213339 node_paths=PackedStringArray("_target")]
+top_level = true
+z_index = -1
+points = PackedVector2Array(-200, 0, -150, 0, -100, 0, -50, 0, 0, 0)
+width = 40.0
+width_curve = SubResource("Curve_i6nt2")
+gradient = SubResource("Gradient_i6nt2")
+script = ExtResource("3_i6nt2")
+_target = NodePath("..")
+_max_point_count = 20
+_min_velocity = 10.0

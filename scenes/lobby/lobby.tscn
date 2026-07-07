@@ -60,4 +60,3 @@ metadata/_custom_type_script = "uid://drbqhbfsb5cv7"
 [node name="UI" parent="." unique_id=129432372 instance=ExtResource("4_jekxk")]
 
 [editable path="Level/LevelTemplate"]
-[editable path="Level/LevelTemplate/Bath/Water"]
