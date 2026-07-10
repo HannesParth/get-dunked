@@ -53,9 +53,7 @@ extends Node2D
 
 
 # TODO:
-# - (remove ENet stuff)
-# - nicer particles
-# - UI rework?
+# - Give ezcha and addon feedback
 # - clean up listing on ezcha
 
 

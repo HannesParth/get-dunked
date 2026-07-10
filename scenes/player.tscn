@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c7351toivk5hb" path="res://textures/kenney/googly_eye_pupil.png" id="2_dqkch"]
 [ext_resource type="Script" uid="uid://oh0ehnxq3had" path="res://scripts/eye_follow.gd" id="3_fjrip"]
 [ext_resource type="Texture2D" uid="uid://dsuta32p6pdcw" path="res://textures/kenney/googly_eye_highlight.png" id="3_qlg0r"]
+[ext_resource type="Script" uid="uid://dal361ou270m4" path="res://scripts/camera_zoom.gd" id="6_smehm"]
 [ext_resource type="Script" uid="uid://i5oofhwbrbfm" path="res://scripts/player_cannon.gd" id="6_tuyoq"]
 [ext_resource type="PackedScene" uid="uid://cd0kn4ose32vh" path="res://scenes/cannonball.tscn" id="7_fjrip"]
 
@@ -276,15 +277,18 @@ shape = SubResource("CapsuleShape2D_re1am")
 debug_color = Color(0.49411765, 0.54509807, 0.5882353, 0.23137255)
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1869691432]
-process_mode = 4
 replication_config = SubResource("SceneReplicationConfig_qhqgy")
 
 [node name="ClientSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=556904983]
-process_mode = 4
 replication_config = SubResource("SceneReplicationConfig_dqkch")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1245246379]
+limit_left = -1486
+limit_top = -400
+limit_right = 2586
+limit_bottom = 730
 position_smoothing_enabled = true
+script = ExtResource("6_smehm")
 
 [node name="Cannon" type="Node2D" parent="." unique_id=427906528 node_paths=PackedStringArray("proj_origin", "proj_holder", "trajectory_line", "cooldown_progress")]
 script = ExtResource("6_tuyoq")

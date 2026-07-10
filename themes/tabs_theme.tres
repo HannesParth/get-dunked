@@ -1,0 +1,12 @@
+[gd_resource type="Theme" format=3 uid="uid://ovwuk3x6nneo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjrro"]
+bg_color = Color(0.21176471, 0.21176471, 0.21176471, 0.36078432)
+border_color = Color(0.04212161, 0.04212164, 0.042121567, 0.41568628)
+border_blend = true
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+
+[resource]
+TabContainer/constants/side_margin = 0
+TabContainer/styles/panel = SubResource("StyleBoxFlat_wjrro")

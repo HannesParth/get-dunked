@@ -13,11 +13,14 @@ size = Vector2(4000, 40)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_20m8l"]
 bg_color = Color(0.04212162, 0.042121634, 0.04212159, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eokde"]
+size = Vector2(475, 40)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7hipx"]
-size = Vector2(400, 40)
+size = Vector2(475, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_re1am"]
-size = Vector2(4000, 300)
+size = Vector2(4000, 385)
 
 [node name="LevelTemplate" type="Node2D" unique_id=1203732062 node_paths=PackedStringArray("spawn_area", "_ui")]
 script = ExtResource("1_7hipx")
@@ -37,17 +40,18 @@ texture = ExtResource("1_eyte8")
 [node name="Bath" type="Node" parent="." unique_id=1730865555]
 
 [node name="PlaceholderGround" type="StaticBody2D" parent="Bath" unique_id=1199029886]
-position = Vector2(549, 633)
+position = Vector2(549, 717)
 collision_layer = 2
 collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/PlaceholderGround" unique_id=1978962558]
+position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_20m8l")
 
 [node name="Panel" type="Panel" parent="Bath/PlaceholderGround" unique_id=1515855497]
-offset_left = -1999.0
+offset_left = -1998.0
 offset_top = -20.0
-offset_right = 2001.0
+offset_right = 2002.0
 offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
 
@@ -58,12 +62,13 @@ collision_layer = 2
 collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/PlaceholderGround2" unique_id=813757651]
-shape = SubResource("RectangleShape2D_7hipx")
+position = Vector2(37.5, 0)
+shape = SubResource("RectangleShape2D_eokde")
 
 [node name="Panel" type="Panel" parent="Bath/PlaceholderGround2" unique_id=1563373622]
 offset_left = -199.0
 offset_top = -20.0
-offset_right = 201.0
+offset_right = 275.0243
 offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
 
@@ -74,12 +79,13 @@ collision_layer = 2
 collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/PlaceholderGround3" unique_id=344192303]
+position = Vector2(37.5, 0)
 shape = SubResource("RectangleShape2D_7hipx")
 
 [node name="Panel" type="Panel" parent="Bath/PlaceholderGround3" unique_id=1460648167]
 offset_left = -199.0
 offset_top = -20.0
-offset_right = 201.0
+offset_right = 275.23132
 offset_bottom = 20.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_20m8l")
 
@@ -94,12 +100,14 @@ angular_damp = 0.0
 script = ExtResource("3_gr3xe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bath/WaterArea2D" unique_id=1149487776]
+position = Vector2(0, 42.5)
 shape = SubResource("RectangleShape2D_re1am")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="DynamicWater2D" type="Node2D" parent="Bath" unique_id=1825610596]
 position = Vector2(-1449, 312)
 script = ExtResource("5_ulyey")
-bottom_right_corner = Vector2(4000, 300)
+bottom_right_corner = Vector2(4000, 385)
 surface_color = Color(0.13333334, 0.54509807, 0.5411765, 0.6784314)
 water_color = Color(0.18039216, 0.69803923, 0.6901961, 0.44705883)
 wave_height = 10.0

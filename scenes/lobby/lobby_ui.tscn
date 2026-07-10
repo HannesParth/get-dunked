@@ -2,11 +2,22 @@
 
 [ext_resource type="Script" uid="uid://gcvbct505qlc" path="res://scripts/multiplayer/lobby_ui.gd" id="1_lvof1"]
 [ext_resource type="Theme" uid="uid://bs41s7eox2ifx" path="res://themes/label_header_theme.tres" id="2_b64cs"]
+[ext_resource type="Theme" uid="uid://ovwuk3x6nneo" path="res://themes/tabs_theme.tres" id="3_uq3sf"]
 [ext_resource type="Texture2D" uid="uid://cseilnu86ytf6" path="res://addons/ezcha_network/assets/export_logo.png" id="3_wjrro"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p73ga"]
+bg_color = Color(0.9843137, 0.80784315, 0.45490196, 1)
+border_width_right = 8
+border_color = Color(0.8666667, 0.654902, 0.16862746, 1)
+border_blend = true
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_re1am"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_20m8l"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wjrro"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uq3sf"]
 
 [node name="UI" type="CanvasLayer" unique_id=129432372 node_paths=PackedStringArray("_enet_address_edit", "_enet_join_port_edit", "_enet_host_port_edit", "_enet_join_button", "_enet_host_button", "_relay_panel", "_relay_join_code_edit", "_relay_resolve_join_code_button", "_relay_host_name_edit", "_relay_host_server_dropdown", "_relay_host_visibility_dropdown", "_relay_auth_button", "_relay_host_button", "_relay_find_lobby_list", "_relay_find_refresh_button", "_relay_find_join_button")]
 script = ExtResource("1_lvof1")
@@ -30,14 +41,15 @@ _relay_find_join_button = NodePath("MainPanel/MarginContainer/TabContainer/Relay
 [node name="MainPanel" type="PanelContainer" parent="." unique_id=1753016418]
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 405.0
+offset_right = 509.0
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p73ga")
 
 [node name="TitleLabel" type="Label" parent="MainPanel" unique_id=102679241]
 layout_mode = 2
 size_flags_vertical = 0
 offset_transform_enabled = true
-offset_transform_position = Vector2(4.33, 10.025)
+offset_transform_position = Vector2(-5.79, 10.025)
 offset_transform_rotation = 0.061086524
 theme = ExtResource("2_b64cs")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -49,11 +61,12 @@ horizontal_alignment = 2
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 122
-theme_override_constants/margin_right = 12
+theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 12
 
 [node name="TabContainer" type="TabContainer" parent="MainPanel/MarginContainer" unique_id=1518210322]
 layout_mode = 2
+theme = ExtResource("3_uq3sf")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_re1am")
 current_tab = 0
 tab_0/title = "Relay"
@@ -62,7 +75,7 @@ tab_1/title = "ENet"
 
 [node name="RelayTabs" type="TabContainer" parent="MainPanel/MarginContainer/TabContainer" unique_id=1671824888]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_20m8l")
+theme = ExtResource("3_uq3sf")
 current_tab = 0
 tab_0/title = "Join/Host"
 tab_1/title = "Find a Lobby"
@@ -84,6 +97,7 @@ theme_override_constants/separation = 16
 
 [node name="JoinLobbyPanel" type="PanelContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer" unique_id=260291121]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wjrro")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/JoinLobbyPanel" unique_id=241324599]
 layout_mode = 2
@@ -119,8 +133,13 @@ alignment = 2
 layout_mode = 2
 text = "Resolve"
 
+[node name="Separator" type="Panel" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer" unique_id=1712697030]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
 [node name="HostLobbyPanel" type="PanelContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer" unique_id=870016176]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_uq3sf")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainPanel/MarginContainer/TabContainer/RelayTabs/JoinOrHostLobbyMargin/VBoxContainer/HostLobbyPanel" unique_id=1573689613]
 layout_mode = 2

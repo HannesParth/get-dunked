@@ -34,6 +34,8 @@ var _point_distance: float = 2.0
 var _last_frame_global: Vector2 = Vector2.ZERO
 var _travelled_since_last_point: float = 0.0
 
+var _cleanup_tween: Tween = null
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	if _target == null || !is_instance_valid(_target):
@@ -59,7 +61,10 @@ func _physics_process(p_delta: float) -> void:
 	
 	_current_velocity = distance_this_frame / p_delta if p_delta > 0.0 else 0.0
 	if _current_velocity < _min_velocity:
+		_start_point_cleanup()
 		return
+	
+	_stop_point_cleanup()
 	
 	match _draw_type:
 		TrailDrawType.FRAME:
@@ -89,3 +94,24 @@ func _add_trail_point() -> void:
 
 func get_current_velocity() -> float:
 	return _current_velocity
+
+
+## Starts a tween to remove points from the trail over time, instead of insantly.
+func _start_point_cleanup() -> void:
+	_stop_point_cleanup()
+	
+	_cleanup_tween = create_tween()
+	_cleanup_tween.set_loops()
+	_cleanup_tween.tween_callback(
+			func() -> void:
+				if points.size() < 1:
+					return
+				remove_point(0)
+	)
+	_cleanup_tween.tween_interval(0.2)
+
+
+func _stop_point_cleanup() -> void:
+	if _cleanup_tween != null && _cleanup_tween.is_valid():
+		_cleanup_tween.kill()
+		_cleanup_tween = null

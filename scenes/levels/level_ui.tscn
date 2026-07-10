@@ -138,6 +138,35 @@ step_1/0 = {
 }
 metadata/_custom_type_script = "uid://bt3ws3kipvotr"
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eokde"]
+bg_color = Color(0.9843137, 0.80784315, 0.45490196, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.8666667, 0.654902, 0.16862746, 1)
+border_blend = true
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w06ee"]
+draw_center = false
+border_width_right = 8
+border_color = Color(0.8666667, 0.654902, 0.16862746, 1)
+border_blend = true
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ad6gm"]
+draw_center = false
+border_width_left = 8
+border_color = Color(0.8666667, 0.654902, 0.16862746, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_bottom_left = 8
+
 [node name="LevelUI" type="CanvasLayer" unique_id=1737017027 node_paths=PackedStringArray("_to_dunk_tween", "_be_dunked_tween", "_countdown_label", "_lobby_panel", "_player_list", "_wait_for_host_label", "_host_start_game_button")]
 script = ExtResource("1_w06ee")
 _player_label_theme = ExtResource("2_ad6gm")
@@ -220,6 +249,7 @@ metadata/_custom_type_script = "uid://ctyt4tssk0lb"
 visible = false
 custom_minimum_size = Vector2(500, 300)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eokde")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/ShowLobbyPanel" unique_id=1544421286]
 layout_mode = 2
@@ -227,6 +257,7 @@ layout_mode = 2
 [node name="PlayerListPanel" type="PanelContainer" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer" unique_id=1619907339]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_w06ee")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/PlayerListPanel" unique_id=1814333810]
 layout_mode = 2
@@ -257,6 +288,7 @@ horizontal_alignment = 1
 [node name="StartGamePanel" type="PanelContainer" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer" unique_id=1173926832]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ad6gm")
 
 [node name="WaitForHostLabel" type="Label" parent="MarginContainer/CenterContainer/ShowLobbyPanel/HBoxContainer/StartGamePanel" unique_id=379306043]
 visible = false

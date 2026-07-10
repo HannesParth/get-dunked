@@ -53,7 +53,7 @@ var hit_cooldown_ms: int = 100
 @export var body_panel: Panel
 @export var client_sync: MultiplayerSynchronizer
 @export var server_sync: MultiplayerSynchronizer
-@export var camera: Camera2D
+@export var camera: CameraZoom
 @export var cannon: PlayerCannon
 
 @export var alive_eyes: Array[TextureRect] = []
@@ -106,6 +106,7 @@ func _ready() -> void:
 	if local:
 		# Activate the camera if local
 		camera.make_current()
+		camera.local = local
 
 
 #region RPC 
