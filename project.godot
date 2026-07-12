@@ -13,7 +13,7 @@ config_version=5
 config/name="Get Dunked"
 run/main_scene="uid://c4cgjipsrutvo"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://di8oakub3m2y7"
 
 [autoload]
 

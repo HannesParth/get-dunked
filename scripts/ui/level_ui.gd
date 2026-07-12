@@ -49,7 +49,9 @@ func _on_host_start_game_pressed() -> void:
 
 @rpc("authority", "call_local", "reliable")
 func _start_game_sequence() -> void:
-	await get_tree().create_timer(0.25).timeout
+	_to_dunk_tween.make_tween()
+	_be_dunked_tween.make_tween()
+	#await get_tree().create_timer(0.25).timeout
 	
 	_lobby_panel.hide()
 	_to_dunk_tween.play()
