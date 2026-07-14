@@ -20,6 +20,9 @@ func _ready() -> void:
 	if showcase_only:
 		return
 	
+	if !_ui:
+		return
+	
 	_ui.countdown_finished.connect(
 		func() -> void:
 			is_gameplay_active = true

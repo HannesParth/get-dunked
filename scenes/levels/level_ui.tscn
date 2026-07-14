@@ -307,3 +307,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("2_ad6gm")
 text = "Start"
+
+[node name="BannerLabel" type="Label" parent="MarginContainer/CenterContainer" unique_id=1629541854]
+visible = false
+layout_mode = 2
+theme = ExtResource("3_6xs45")
+theme_override_font_sizes/font_size = 120
+text = "Get Dunked"
